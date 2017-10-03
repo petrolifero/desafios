@@ -1,0 +1,10 @@
+#!/usr/bin/sh
+
+for i in `seq 10`
+do
+	if [ ! -d /home/$USER/$i ];
+	then
+		exit 1;
+	fi
+done
+exit 0;

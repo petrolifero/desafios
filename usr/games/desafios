@@ -1,0 +1,67 @@
+#!/bin/sh
+
+#input:
+#if nothing, show the quests that can be made
+#if not nothing, need to be a number and a action
+#number can be any decimal number
+#action = enum {prepare,done}
+
+howToUse(){
+	echo "Digite uma das duas formas abaixo"
+	echo "$0"
+	echo "$0 numeroDaQuest [done | accept | show]"
+}
+
+isAccepted(){
+	quest=$1
+	grep $1 /home/$USER/.desafios/questsAccepted >/dev/null
+	echo $?
+}
+
+if [ $# -eq 0 ]; #if there's no arguments
+then
+	orderedQuests=`mktemp`
+	aux=`mktemp`
+	ls /var/games/desafios | sort > $orderedQuests;
+	cat /home/$USER/.desafios/questsDone | sort > $aux;
+	echo "então, você pode fazer essas quests : ";
+	diff $orderedQuests $aux | grep "<" | sed 's/< //g';
+	rm $orderedQuests;
+	rm $aux;
+	echo "e ainda por cima, você esta fazendo essas quests : "
+	cat /home/$USER/.desafios/questsAccepted
+elif [ $# -eq 2 ]; 
+then
+	quest=$1
+	action=$2
+	questsDone="/home/$USER/.desafios/questsDone"
+	isAccepted $quest
+	if [ ("$action" = "done") -a ($? -eq 0) ];
+	then
+		sh "/var/games/desafios/$quest/$quest.done"
+		if [ $? -eq 0 ]; #Good Game
+		then
+			echo $quest >>$questsDone
+			aux=`mktemp questsDoneXXXX`
+			sort -u $questsDone > $aux
+			mv $aux $questsDone
+		else
+			echo "Você não terminou essa quests, gafanhoto"
+		fi
+	elif [ "$action" = "accept" ];
+	then
+		differences=`diff /var/games/desafios/$quest/$quest.prerequisites /home/$USER/.desafios/questsDone | grep "<" | sed 's/< //g'`
+		if [ -z $differences ];
+		then
+			sh "/var/games/desafios/$quest/$quest.prepare"
+		else
+			echo "desculpe, você não cumpriu os prerequisitos"
+			exit 1
+		fi	
+	elif [ "$action" = "show" ];
+	then
+		cat /var/games/desafios/$quest/$quest.text
+	fi
+else
+	howToUse
+fi
