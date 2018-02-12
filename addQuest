@@ -1,0 +1,3 @@
+#!/bin/sh
+
+find /bin/ /usr/bin/ -type f | awk -F'/' '{print $NF}' | cut -d. -f1  |xargs -n1 ./createDir
