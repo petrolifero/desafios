@@ -14,7 +14,7 @@ howToUse(){
 
 isAccepted(){
 	quest=$1
-	grep $1 /home/$USER/.desafios/questsAccepted >/dev/null
+	grep $quest /home/$USER/.desafios/questsAccepted >/dev/null
 	echo $?
 }
 
