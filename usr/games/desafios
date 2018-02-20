@@ -9,7 +9,7 @@
 howToUse(){
 	echo "Digite uma das duas formas abaixo"
 	echo "$0"
-	echo "$0 numeroDaQuest [done | accept | show]"
+	echo "$0 nomeDaQuest [done | accept | show]"
 }
 
 isAccepted(){
@@ -18,7 +18,8 @@ isAccepted(){
 	echo $?
 }
 
-confParser.awk /etc/desafios.conf
+confParser.awk /etc/desafios.conf | read questPaths
+
 
 
 if [ $# -eq 0 ]; #if there's no arguments
