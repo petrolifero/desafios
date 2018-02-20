@@ -18,6 +18,9 @@ isAccepted(){
 	echo $?
 }
 
+confParser.awk /etc/desafios.conf
+
+
 if [ $# -eq 0 ]; #if there's no arguments
 then
 	orderedQuests=`mktemp`
