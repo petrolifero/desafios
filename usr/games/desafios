@@ -2,9 +2,9 @@
 
 #input:
 #if nothing, show the quests that can be made
-#if not nothing, need to be a number and a action
-#number can be any decimal number
-#action = enum {prepare,done}
+#if not nothing, need to be a name and a action
+#name is anything
+#action = enum {done,accept,show}
 
 howToUse(){
 	echo "Digite uma das duas formas abaixo"
