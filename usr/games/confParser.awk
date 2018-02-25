@@ -13,6 +13,7 @@
 
 BEGIN{
 	quest=""
+	myName="confParser.awk"
 }
 
 
@@ -37,7 +38,7 @@ $0 ~ /^quest=.*/{
 
 $0 ~ /^include=.*/{
 	split($0,b,"include=");
-	"awk -f ./confParser.awk " b[2] | getline c;
+	"awk -f `whereis confParser.awk` " b[2] | getline c;
 	split(c,aux,":");
 	for(q in aux)
 	{
