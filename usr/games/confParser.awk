@@ -36,16 +36,16 @@ $0 ~ /^quest=.*/{
 }
 
 
-$0 ~ /^include=.*/{
-	split($0,b,"include=");
-	"awk -f `whereis confParser.awk` " b[2] | getline c;
-	split(c,aux,":");
-	for(q in aux)
-	{
-		quest[aux[q]]=aux[q];
-		del aux[q];
-	}
-}
+#$0 ~ /^include=.*/{
+#	split($0,b,"include=");
+#	"awk -f `whereis confParser.awk` " b[2] | getline c;
+#	split(c,aux,":");
+#	for(q in aux)
+#	{
+#		quest[aux[q]]=aux[q];
+#		del aux[q];
+#	}
+#}
 
 
 
