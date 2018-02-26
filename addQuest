@@ -1,3 +1,11 @@
 #!/bin/sh
 
-find /bin/ /usr/bin/ -type f | awk -F'/' '{print $NF}' | cut -d. -f1  |xargs -n1 ./createDir
+command=$1
+
+mkdir "var/games/desafios/$1"
+cd "var/games/desafios/$1"
+>prerequisites
+>verify
+>text
+>prepare
+cd -
