@@ -1,0 +1,14 @@
+#!/bin/sh
+
+aux=`mktmp`
+
+awk '
+
+/^#.*$/{
+  next;
+}
+
+'
+
+/etc/desafios.conf > $aux
+
