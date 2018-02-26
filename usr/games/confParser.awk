@@ -1,4 +1,4 @@
-#!/usr/bin/awk
+#!/usr/bin/awk -f
 
 
 #receive a config file and print all the quest's Path
@@ -12,7 +12,6 @@
 
 
 BEGIN{
-	quest=""
 	myName="confParser.awk"
 }
 
