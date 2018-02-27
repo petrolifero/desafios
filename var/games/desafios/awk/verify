@@ -1,6 +1,6 @@
 #!/bin/sh
 
-aux=`mktmp`
+aux=`mktemp`
 
 awk '
 
@@ -11,4 +11,6 @@ awk '
 '
 
 /etc/desafios.conf > $aux
+
+diff $aux /home/$USER/novaConf >/dev/null
 

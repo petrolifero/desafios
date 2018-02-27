@@ -1,0 +1,4 @@
+procurar padrões numa saida de texto é o que o grep se propoe a fazer.
+
+utilize-o para obter os nomes dos usuarios deste computador, disponiveis
+em /etc/passwd, que possuem como shell bash
