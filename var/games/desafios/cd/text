@@ -1,0 +1,10 @@
+os arquivos de um sistema Unix são organizados em diretorios.
+diretorios são apenas conjuntos de arquivos numa estrutura de arvore
+
+o diretorio onde você deve guardar arquivos é a sua home.
+
+Normalmente está em /home/$USER/
+pode acessa-la rapidamente com ~
+
+
+use cd para entrar na sua home

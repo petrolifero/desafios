@@ -1,0 +1,3 @@
+#!/bin/sh
+
+history | tail -n1 | grep ls >/dev/null

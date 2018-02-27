@@ -1,0 +1,6 @@
+a maior parte dos comandos do unix funciona como filtros, recebem uma entrada,
+a modificam e então as exibem na saida padrão.
+
+seq é utilizado para gerar entradas. Ele fornece uma sequencia de numeros
+
+Use o seq para gerar números de 1 a 2018
