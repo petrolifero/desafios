@@ -5,13 +5,13 @@ install :
 	cp -r etc/* /etc/;
 	cp -r usr/* /usr/;
 	cp -r var/* /var/;
-	mkdir /etc/skeleton/.desafios -p
-	>/etc/skeleton/.desafios/questsAccepted
+	mkdir /etc/skel/.desafios -p
+	>/etc/skel/.desafios/questsAccepted
 	for u in `cut -d: -f1 /etc/passwd`; do \
 		mkdir /home/$u/.desafios -p ;\
 		>/home/$u/.desafios/questsAccepted ;\
 	done
-	>/etc/skeleton/.desafios/questsDone
+	>/etc/skel/.desafios/questsDone
 	for u in `cut -d: -f1 /etc/passwd`; do \
 		>/home/$u/.desafios/questsDone;\
 	done
