@@ -40,7 +40,7 @@ then
 	action=$2
 	questsDone="/home/$USER/.desafios/questsDone"
 	isAccepted $quest
-	if [[ ("$action" = "done")]] && [[ ($? -eq 0) ]];
+	if [[ "$action" = "done" ]] && [[ $? -eq 0 ]];
 	then
 		sh "/var/games/desafios/$quest/$quest.done"
 		if [ $? -eq 0 ]; #Good Game

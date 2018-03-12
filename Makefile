@@ -5,17 +5,15 @@ install :
 	cp -r etc/* /etc/;
 	cp -r usr/* /usr/;
 	cp -r var/* /var/;
-	mkdir /etc/skeleton/.desafios
+	mkdir /etc/skeleton/.desafios -p
 	>/etc/skeleton/.desafios/questsAccepted
-	for user in `cut -d: -f1 /etc/passwd`
-	do
-		mkdir /home/$user/.desafios
-		>/home/$user/.desafios/questsAccepted
+	for u in `cut -d: -f1 /etc/passwd`; do \
+		mkdir /home/$u/.desafios -p ;\
+		>/home/$u/.desafios/questsAccepted ;\
 	done
 	>/etc/skeleton/.desafios/questsDone
-	for user in `cut -d: -f1 /etc/passwd`
-	do
-		>/home/$user/.desafios/questsDone
+	for u in `cut -d: -f1 /etc/passwd`; do \
+		>/home/$u/.desafios/questsDone;\
 	done
 	echo 'instalado'
 
