@@ -17,7 +17,7 @@ isAccepted(){
 	grep $quest /home/$USER/.desafios/questsAccepted >/dev/null
 }
 
-confParser.awk /etc/desafios.conf | read questPaths
+#confParser.awk /etc/desafios.conf | read questPaths
 
 
 
