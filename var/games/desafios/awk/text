@@ -1,6 +1,0 @@
-As vezes, precisamos preprocessar alguns dados para limpa-los,
-tornando-os mais apropriados para nossas outras ferramentas.
-
-Pegue o arquivo de configuração deste jogo, /etc/desafios.conf
-e use o awk para eliminar os comentarios. Além disso, guarde o
-resultado na sua home com o nome novaConf

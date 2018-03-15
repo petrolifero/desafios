@@ -2,10 +2,18 @@
 
 command=$1
 
-mkdir "var/games/desafios/$1"
-cd "var/games/desafios/$1"
->prerequisites
->verify
->text
->prepare
-cd -
+if [ "$2" = "create" ];
+then
+	mkdir "var/games/desafios/$1"
+	cd "var/games/desafios/$1"
+	>prerequisites
+	>verify
+	>text
+	>prepare
+	cd -
+elif [ "$2" = "modify" ];
+then
+	cd "var/games/desafios/$1"
+	vim prerequisites verify text prepare -o
+	cd -
+fi;
