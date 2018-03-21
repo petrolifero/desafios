@@ -19,10 +19,7 @@ isAccepted(){
 
 #confParser.awk /etc/desafios.conf | read questPaths
 
-
-
-if [ $# -eq 0 ]; #if there's no arguments
-then
+information(){
 	orderedQuests=`mktemp`
 	aux=`mktemp`
 	ls /var/games/desafios | sort > $orderedQuests;
@@ -33,6 +30,11 @@ then
 	rm $aux;
 	echo "e ainda por cima, você esta fazendo essas quests : "
 	cat /home/$USER/.desafios/questsAccepted;
+}
+
+if [ $# -eq 0 ]; #if there's no arguments
+then
+	information | less
 elif [ $# -eq 2 ]; 
 then
 	quest=$1
