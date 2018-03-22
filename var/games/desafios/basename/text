@@ -1,0 +1,8 @@
+as vezes, precisamos obter o nome puro de um arquivo ou remover sufixos de arquivos para manipulação.
+
+A ferramenta basename serve a este proposito.
+
+obtenha ums listagem de todos os comandos sob seu PATH e coloque no arquivo ~/.desafios/basename/comandos
+
+dica : a variavel PATH contém os diretorios de comandos, separados por ':'
+Para acessar uma variavel v, usamos $v

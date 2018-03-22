@@ -1,0 +1,3 @@
+#!/bin/sh
+
+diff <(echo $PATH | sed 's/:/\n/g' | xargs -n1 ls | xargs -n1 basename | sort) <(sort ~/.desafios/basename/comandos) >/dev/null

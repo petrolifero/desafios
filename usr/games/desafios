@@ -1,15 +1,15 @@
 #!/bin/sh
 
 #input:
-#if nothing, show the quests that can be made
+#if nothing, mostrar the quests that can be made
 #if not nothing, need to be a name and a action
 #name is anything
-#action = enum {done,accept,show}
+#action = enum {verificar,aceitar,mostrar}
 
 howToUse(){
 	echo "Digite uma das duas formas abaixo"
 	echo "$0"
-	echo "$0 nomeDaQuest [done | accept | show]"
+	echo "$0 nomeDaQuest [verificar | aceitar | mostrar]"
 }
 
 isAccepted(){
@@ -22,6 +22,7 @@ isAccepted(){
 information(){
 	orderedQuests=`mktemp`
 	aux=`mktemp`
+	echo "Aperte 'q' para sair"
 	ls /var/games/desafios | sort > $orderedQuests;
 	cat /home/$USER/.desafios/questsDone | sort > $aux;
 	echo "então, você pode fazer essas quests : ";
@@ -41,9 +42,9 @@ then
 	action=$2
 	questsDone="/home/$USER/.desafios/questsDone"
 	isAccepted $quest
-	if [ "$action" = "done" ] && [ $? -eq 0 ];
+	if [ "$action" = "verificar" ] && [ $? -eq 0 ];
 	then
-		sh "/var/games/desafios/$quest/$quest.done"
+		sh "/var/games/desafios/$quest/verify"
 		if [ $? -eq 0 ]; #Good Game
 		then
 			echo $quest >>$questsDone
@@ -53,18 +54,20 @@ then
 		else
 			echo "Você não terminou essa quests, gafanhoto"
 		fi
-	elif [ "$action" = "accept" ];
+	elif [ "$action" = "aceitar" ];
 	then
-		differences=`diff /var/games/desafios/$quest/$quest.prerequisites /home/$USER/.desafios/questsDone | grep "<" | sed 's/< //g'`
-		if [ -z $differences ];
+		differences=`diff /var/games/desafios/$quest/prerequisites /home/$USER/.desafios/questsDone | grep "<" | sed 's/< //g'`
+		if [ -z "$differences" ];
 		then
-			"./var/games/desafios/$quest/$quest.prepare"
+			"./var/games/desafios/$quest/prepare"
 		else
 			echo "desculpe, você não cumpriu os prerequisitos"
 			exit 1
 		fi	
-	elif [ "$action" = "show" ];
+	elif [ "$action" = "mostrar" ];
 	then
+		echo "os prerequisitos são : "
+		cat /var/games/desafios/$quest/prerequisites
 		cat /var/games/desafios/$quest/text
 	fi
 else
