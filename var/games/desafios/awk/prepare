@@ -1,0 +1,6 @@
+#!/bin/sh
+
+mkdir ~/.desafios/awk/
+wget http://dominios.governoeletronico.gov.br/dados-abertos/Dominios_GovBR_basico.csv -O ~/.desafios/awk/dominios.mod
+sed '1d' ~/.desafios/awk/dominios.mod | cut -d';' -s -f1,4 > ~/.desafios/awk/dominios
+rm ~/.desafios/awk/dominios.mod

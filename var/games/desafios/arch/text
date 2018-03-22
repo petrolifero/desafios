@@ -1,0 +1,5 @@
+conhecer sua arquitetura é essencial para desenvolver bons programas, não apenas em shell
+mas principalmente para linguagens menos abstratas (como C) com o proposito de obter eficiência
+quando se combina varios comandos
+
+execute "arch" no terminal

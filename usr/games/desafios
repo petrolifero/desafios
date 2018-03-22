@@ -58,7 +58,7 @@ then
 		differences=`diff /var/games/desafios/$quest/$quest.prerequisites /home/$USER/.desafios/questsDone | grep "<" | sed 's/< //g'`
 		if [ -z $differences ];
 		then
-			sh "/var/games/desafios/$quest/$quest.prepare"
+			"./var/games/desafios/$quest/$quest.prepare"
 		else
 			echo "desculpe, você não cumpriu os prerequisitos"
 			exit 1

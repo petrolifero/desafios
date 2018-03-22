@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cd ~
+diff <(awk -F ';' '{uf[$4]++;} END {for(i in uf) {print i " " uf[i]} } '  .desafios/awk/dominios) output >/dev/null

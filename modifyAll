@@ -1,0 +1,6 @@
+#!/bin/sh
+
+for a in `ls var/games/desafios`
+do
+	./addQuest $a modify
+done

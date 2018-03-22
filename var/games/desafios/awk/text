@@ -1,0 +1,22 @@
+awk é uma ferramenta formidavel criada para gerar relatorios bem formatados.
+Ele trabalha lendo linha por linha, e caso condições se satisfaçam, ele executa algum comando
+
+Seu trabalho é obter o número de dominios gov.br agrupados por uf e jogar no arquivo ~/output
+
+dica: você pode redirecionar o comando foo para o arquivo bar usando "foo > bar"
+
+exemplo : 
+Entrada
+
+a.gov.br,RJ
+b.gov.br,AC
+c.gov.br,SP
+d.gov.br,SP
+
+
+Saida
+RJ 1
+AC 1
+SP 2
+
+Pode utilizar o arquivo ~/.desafios/awk/dominios
