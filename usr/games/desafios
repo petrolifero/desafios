@@ -54,6 +54,8 @@ then
 			aux=`mktemp questsDoneXXXX`
 			sort -u $questsDone > $aux
 			mv $aux $questsDone
+			sed '/$quest/d' -i /home/$USER/.desafios/questsAccepted
+			echo "você completou a quest $quest"
 		else
 			echo "Você não terminou essa quests, gafanhoto"
 		fi
@@ -64,6 +66,7 @@ then
 		then
 			"./var/games/desafios/$quest/prepare"
 			echo ls >> /home/$USER/.desafios/questsAccepted
+			echo "você aceitou a quest nomeada $quest"
 		else
 			echo "desculpe, você não cumpriu os prerequisitos"
 			exit 1

@@ -2,4 +2,10 @@ os arquivos de um sistema Unix são organizados em diretorios.
 diretorios são apenas conjuntos de arquivos numa estrutura de arvore
 
 
-use ls para listar o conteudo do diretorio em que esta.
+use ls para listar o conteudo do diretorio em que esta e redirecione
+para um arquivo chamado ls no seu home.
+
+dica: para qualquer comando cmd, digitar cmd>f sobrescreverá f com 
+a saida de cmd.
+
+dica: para ver as opções que um comando cmd possui, use man cmd

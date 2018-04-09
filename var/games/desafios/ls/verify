@@ -1,9 +1,3 @@
 #!/bin/bash
 
-a=`history | tail -n1 | grep ls | wc -l `
-if [ $a -eq 1 ];
-then
-	true;
-	return;
-fi
-false;
+test -s /home/$USER/ls
