@@ -44,7 +44,7 @@ then
 	isAccepted $quest
 	if [ "$action" = "verificar" ] && [ $? -eq 0 ];
 	then
-		sh "/var/games/desafios/$quest/verify"
+		. "/var/games/desafios/$quest/verify"
 		if [ $? -eq 0 ]; #Good Game
 		then
 			echo $quest >>$questsDone
@@ -66,7 +66,8 @@ then
 		fi	
 	elif [ "$action" = "mostrar" ];
 	then
-		echo "os prerequisitos são : "
+		prerequisites=
+		echo "os prerequisitos que você ainda não tem são : "
 		cat /var/games/desafios/$quest/prerequisites
 		cat /var/games/desafios/$quest/text
 	fi
