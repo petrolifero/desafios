@@ -2,3 +2,8 @@
 
 cd ~
 diff <(awk -F ';' '{uf[$4]++;} END {for(i in uf) {print i " " uf[i]} } '  .desafios/awk/dominios) output >/dev/null
+if [ $? -eq 0 ];
+then
+	cd - ; true;
+else
+	cd -; false;

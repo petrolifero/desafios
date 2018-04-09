@@ -1,0 +1,15 @@
+muitos dados dentro do unix tem uma formatação bem simples, apenas valores
+separados por virgulas, ou ponto-e-virgula, ou dois-pontos, etc.
+
+A maioria dos dados disponibilizados no portal de dados abertos brasileiro,
+dados.gov.br, apresenta uma versão em csv, valores separados por algum delimitador
+
+mas como estamos por aqui por enquanto, obtenha os nomes dos usuarios do seu sistema.
+Quando os obter, coloque-os em um arquivo chamado cut no seu diretorio.
+
+dica: se executar "cmd > f", a saida do comando cmd sobrescreverá o arquivo f.
+
+dica: /etc/passwd possui os dados que você precisa
+dica: pode usar "cat /etc/passwd" para examinar o formato do arquivo.
+
+dica: use o manual com sabedoria.
