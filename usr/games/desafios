@@ -6,6 +6,8 @@
 #name is anything
 #action = enum {verificar,aceitar,mostrar}
 
+
+
 howToUse(){
 	echo "Digite uma das duas formas abaixo"
 	echo "$0"
@@ -26,7 +28,7 @@ information(){
 	ls /var/games/desafios | sort > $orderedQuests;
 	cat /home/$USER/.desafios/questsDone | sort > $aux;
 	echo "então, você pode fazer essas quests : ";
-	diff $orderedQuests $aux | grep "<" | sed 's/< //g';
+	diff $orderedQuests $aux | grep "<" | sed 's/< //g' | xargs -n1 simplify | head ;
 	rm $orderedQuests;
 	rm $aux;
 	echo "e ainda por cima, você esta fazendo essas quests : "
