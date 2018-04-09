@@ -1,3 +1,4 @@
 #!/bin/sh
 
-history | tail -n1 | grep arch >/dev/null
+test -s ~/arch
+

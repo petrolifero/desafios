@@ -2,4 +2,9 @@ conhecer sua arquitetura é essencial para desenvolver bons programas, não apen
 mas principalmente para linguagens menos abstratas (como C) com o proposito de obter eficiência
 quando se combina varios comandos
 
-execute "arch" no terminal
+execute "arch" no terminal e redirecione a saida para um arquivo chamado arch no seu diretorio.
+
+dica: para qualquer comando cmd, cmd>f substituirá o conteudo do arquivo f pela saida do comando
+cmd
+
+dica: o seu diretorio é /home/$USER, mas pode ser abreviado por ~
