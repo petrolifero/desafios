@@ -1,3 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
-history | tail -n1 | grep ls >/dev/null
+a=`history | tail -n1 | grep ls | wc -l `
+if [ $a -eq 1 ];
+then
+	true;
+	return;
+fi
+false;

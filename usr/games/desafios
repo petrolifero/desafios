@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #input:
 #if nothing, mostrar the quests that can be made
@@ -47,7 +47,7 @@ then
 	isAccepted $quest
 	if [ "$action" = "verificar" ] && [ $? -eq 0 ];
 	then
-		. "/var/games/desafios/$quest/verify"
+		. /var/games/desafios/$quest/verify
 		if [ $? -eq 0 ]; #Good Game
 		then
 			echo $quest >>$questsDone
@@ -63,6 +63,7 @@ then
 		if [ -z "$differences" ];
 		then
 			"./var/games/desafios/$quest/prepare"
+			echo ls >> /home/$USER/.desafios/questsAccepted
 		else
 			echo "desculpe, você não cumpriu os prerequisitos"
 			exit 1
