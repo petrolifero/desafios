@@ -69,10 +69,15 @@ then
 		fi	
 	elif [ "$action" = "mostrar" ];
 	then
-		prerequisites=`cat /var/games/desafios/$quest/prerequisites`
-		echo "os prerequisitos que você ainda não tem são : "
-		cat /var/games/desafios/$quest/prerequisites
-		cat /var/games/desafios/$quest/text
+		prerequisites=/var/games/desafios/$quest/prerequisites
+		difference=`diff $prerequisites /home/$USER/.desafios/questsDone | grep "<" | sed 's/< //g'`
+		if [ -z "$difference" ];
+		then
+			cat /var/games/desafios/$quest/text
+		else
+			echo "os prerequisitos que você ainda não tem são : "
+			echo $difference
+		fi
 	fi
 else
 	howToUse
