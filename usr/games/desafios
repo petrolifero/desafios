@@ -28,7 +28,9 @@ information(){
 	ls /var/games/desafios | sort > $orderedQuests;
 	cat /home/$USER/.desafios/questsDone | sort > $aux;
 	echo "então, você pode fazer essas quests : ";
-	diff $orderedQuests $aux | grep "<" | sed 's/< //g' | xargs -n1 simplify | head ;
+	diff $orderedQuests $aux | grep "<" | sed 's/< //g' | xargs -n1 simplify 2>/dev/null| head ;
+	rm $PWD/simplify*; #gambiarra por causa de broken pipe error acima.
+			   #tão gambiarra que deve ter no kernel do windows
 	rm $orderedQuests;
 	rm $aux;
 	echo "e ainda por cima, você esta fazendo essas quests : "

@@ -7,7 +7,7 @@ quest=$1;
 questsDone=`mktemp simplifyXXX`;
 prerequisites=`mktemp simplifyXXX`;
 differe=`mktemp simplifyXXX`
-trap 'rm $questsDone $prerequisites $differe ; exit' 13
+trap PIPE
 
 cat /home/$USER/.desafios/questsDone | sort > $questsDone;
 cat /var/games/desafios/$quest/prerequisites | sort > $prerequisites
