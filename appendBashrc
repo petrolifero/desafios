@@ -1,0 +1,6 @@
+#!/bin/sh
+
+a=`mktemp makefileXXX`
+cat /etc/skel/.bashrc .bashrc >$a
+mv $a /etc/skel/.bashrc
+

@@ -8,12 +8,12 @@ install :
 	mkdir /etc/skel/.desafios -p
 	>/etc/skel/.desafios/questsAccepted
 	>/etc/skel/.desafios/questsDone
+	./appendBashrc
 	./configUser.sh
 	echo 'instalado'
 
 
 remove :
 	rm /etc/desafios.conf
-	rm /usr/games/desafios
-	rm /usr/games/
+	rm -rfv /usr/games/desafios
 	rm -rf /var/games/desafios

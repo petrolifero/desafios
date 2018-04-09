@@ -33,8 +33,7 @@ information(){
 			   #tão gambiarra que deve ter no kernel do windows
 	rm $orderedQuests;
 	rm $aux;
-	echo "e ainda por cima, você esta fazendo essas quests : "
-	cat /home/$USER/.desafios/questsAccepted;
+	test -s /home/$USER/.desafios/questsAccepted && (echo "e ainda por cima, você esta fazendo essas quests : " ; cat /home/$USER/.desafios/questsAccepted;)
 }
 
 if [ $# -eq 0 ]; #if there's no arguments
@@ -70,7 +69,7 @@ then
 		fi	
 	elif [ "$action" = "mostrar" ];
 	then
-		prerequisites=
+		prerequisites=`cat /var/games/desafios/$quest/prerequisites`
 		echo "os prerequisitos que você ainda não tem são : "
 		cat /var/games/desafios/$quest/prerequisites
 		cat /var/games/desafios/$quest/text
