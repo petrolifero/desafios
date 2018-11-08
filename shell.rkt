@@ -18,4 +18,6 @@ logicOperator <- v:('&&' / '||' ) -> (if (equal? v "&&") and-struct or-struct);
 redirect <- pipeline;
 pipeline <- v1:simpleCommand _ v2:((pipe _ simpleCommand _ )*) -> (red v1 v2);
 pipe <- '|' -> pipe-struct;
-simpleCommand <- ls / cd / mkdir / cat / less / more / find / man;
+simpleCommand <- ls / cd / mkdir / cat / less / more / find / man / l;
+cd <- 'cd' _ 
+ls <- 'ls' [a-zA-Z _\-]*;
