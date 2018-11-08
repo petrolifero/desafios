@@ -16,7 +16,7 @@ logic <- v1:redirect _ v2:((logicOperator _ redirect _)*) -> (red v1 v2);
 logicOperator <- v:('&&' / '||' ) -> (if (equal? v "&&") and-struct or-struct);
 
 //na versão atual, não há redirecionamento
-redirect <- pipeline;
+redirect <- pipeline input-redirect? output-redirect? ->;
 pipeline <- v1:simpleCommand _ v2:((pipe _ simpleCommand _ )*) -> (red v1 v2);
 pipe <- '|' -> pipe-struct;
 simpleCommand <- ls / cd / mkdir / cat / less / more / find / man / l;
