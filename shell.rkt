@@ -3,6 +3,7 @@
 (struct or-struct (a b) #:transparent);
 (struct and-struct (a b) #:transparent);
 (struct pipe-struct (a b) #:transparent);
+(struct cd-struct (directory) #:transparent);
 
 (define (red v l)
   (if (null? l) v
@@ -19,5 +20,8 @@ redirect <- pipeline;
 pipeline <- v1:simpleCommand _ v2:((pipe _ simpleCommand _ )*) -> (red v1 v2);
 pipe <- '|' -> pipe-struct;
 simpleCommand <- ls / cd / mkdir / cat / less / more / find / man / l;
-cd <- 'cd' _ 
+
 ls <- 'ls' [a-zA-Z _\-]*;
+
+cd <- 'cd' _ v:directory-name -> (cd-struct v);
+directory-name <- [a-zA-Z]+;
