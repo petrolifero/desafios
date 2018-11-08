@@ -2,6 +2,7 @@
 
 (struct or-struct (a b) #:transparent);
 (struct and-struct (a b) #:transparent);
+(struct pipe-struct (a b) #:transparent);
 
 (define (red v l)
   (if (null? l) v
@@ -10,8 +11,11 @@
 
 _ < [ \t\n]* ;
 shell <- _ logic _;
-logic <- v1:redirect _ v2:((logicOperator _ redirect _)*) -> (if (null? v2) v1 (red v1 v2));
+logic <- v1:redirect _ v2:((logicOperator _ redirect _)*) -> (red v1 v2);
 logicOperator <- v:('&&' / '||' ) -> (if (equal? v "&&") and-struct or-struct);
+
+//na versão atual, não há redirecionamento
 redirect <- pipeline;
-pipeline <- simpleCommand;
-simpleCommand <- ls / cd / aaaa;
+pipeline <- v1:simpleCommand _ v2:((pipe _ simpleCommand _ )*) -> (red v1 v2);
+pipe <- '|' -> pipe-struct;
+simpleCommand <- ls / cd / mkdir / ;
