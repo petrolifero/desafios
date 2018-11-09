@@ -22,6 +22,11 @@
   (if (null? l) v
       (red ((car l) v (cadr l)) (cddr l))));
 
+(define (flat l)
+  (match l
+    [(list (list a ...)) (flat a)]
+    [a a]));
+
 EOI < ! . ;
 _ < [ \t\n]* ;
 shell <- _ v:logic _ EOI -> v;
@@ -46,7 +51,7 @@ name <- v:([a-zA-Z.]+) -> (dir-or-file v);
 
 mkdir <- 'mkdir' _ v:name -> (mkdir-struct v);
 
-cat <- 'cat' _ v1:name? v2:((_ name)*) -> (cat-struct (cons v1 v2));
+cat <- 'cat' _ v1:name? v2:((_ name)*) -> (cat-struct (flat (cons v1 v2)));
 
 less <- 'less' _ v1:name? -> (less-struct v1);
 
