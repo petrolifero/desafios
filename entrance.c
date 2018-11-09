@@ -20,7 +20,8 @@ int main(int argc, char* argv[])
   }
   if(childPid == 0) //child -- racket
   {
-    
+    close(c2racket[WRITETO]);
+    close(racket2c[READTO]);
   }
   else //parent -- c
   {
