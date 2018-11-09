@@ -41,6 +41,7 @@
 
 
 #|
+https://docs.racket-lang.org/reference/subprocess.html
 (define (execute-shell line user)
   (let ([command-str (destroy line)])
     (
