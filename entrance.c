@@ -20,12 +20,18 @@ int main(int argc, char* argv[])
   }
   if(childPid == 0) //child -- racket
   {
+    FILE* in,*out;
     close(c2racket[WRITETO]);
-    close(racket2c[READTO]);
+    close(racket2c[READFROM]);
+    in=fdopen(c2racket[READFROM],"r");
+    out=fdopen(racket2c[WRITETO], "w");
+    freopen();
+    
   }
   else //parent -- c
   {
-    
+    close(c2racket[READFROM]);
+    close(racket2c[WRITETO]);
   }
   return 0;
 }
