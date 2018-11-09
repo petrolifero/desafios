@@ -31,10 +31,14 @@
          quests))
 
 (define (quest-allow? l c)
-  #t)
+  (if (equals? c #f)
+    #f
+    #t))
   
 (define (level-allow? l c)
-  #t)
+  (if (equals? c #f)
+    #f
+    #t))
 
 
 
