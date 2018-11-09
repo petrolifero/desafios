@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
   {
     
   }
-  else //c
+  else //parent -- c
   {
     
   }
