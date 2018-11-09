@@ -12,7 +12,7 @@
 
 (define (loop user)
   (let ([line (parser (read-line))])
-    (if (can-execute user line)
+    (if (can-execute? user line)
         (execute-shell line user)
         (system-message "Voce nao pode executar esse comando ainda.")))
      (loop user))
