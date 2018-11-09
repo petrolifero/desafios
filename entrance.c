@@ -18,5 +18,13 @@ int main(int argc, char* argv[])
     fprintf(stderr,"Error : fork don't worked\n");
     return 1;
   }
+  if(childPid == 0) //child -- racket
+  {
+    
+  }
+  else //c
+  {
+    
+  }
   return 0;
 }
