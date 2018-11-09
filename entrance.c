@@ -12,5 +12,11 @@ int main(int argc, char* argv[])
   pipe(c2racket);
   pipe(racket2c);
   childPid=fork();
+  if(childPid<0)
+  {
+    fprintf(stderr,"Internal Error, Please contact the admin(João Pedro Abreu de Souza<jp_abreu@id.uff.br>\n");
+    fprintf(stderr,"Error : fork don't worked\n");
+    return 1;
+  }
   return 0;
 }
