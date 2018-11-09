@@ -46,11 +46,11 @@ name <- v:([a-zA-Z.]+) -> (dir-or-file v);
 
 mkdir <- 'mkdir' _ v:name -> (mkdir-struct v);
 
-cat <- 'cat' _ v1:name v2:((_ name)*) -> (cat-struct (cons v1 v2));
+cat <- 'cat' _ v1:name? v2:((_ name)*) -> (cat-struct (cons v1 v2));
 
-less <- 'less' _ v1:name -> (less-struct v1);
+less <- 'less' _ v1:name? -> (less-struct v1);
 
-more <- 'more' _ v1:name -> (more-struct v1);
+more <- 'more' _ v1:name? -> (more-struct v1);
 
 man <- 'man' _ v1:name -> (man-struct v1);
 
