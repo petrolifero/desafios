@@ -4,6 +4,13 @@
 
 (provide (all-defined-out))
 
+(define (command-message str)
+  (let ([s (string-append "\x1B[35m" str "\x1B[0m")])
+    (display (string-length s))
+    (newline)
+    (display s)))
+
+
 (struct user (name level) #:transparent)
 
 (define (create-user name)
@@ -22,3 +29,21 @@
          [config-file (format "~a/.desafios.quests" home)]
          [quests (call-with-input-file config-file (lambda (in) (string-split (port->string in) "\n")))])
          quests))
+
+(define (quest-allow? l c)
+  #t)
+  
+(define (level-allow? l c)
+  #t)
+
+
+
+
+
+#|
+(define (execute-shell line user)
+  (let ([command-str (destroy line)])
+    (
+    
+    
+|#
