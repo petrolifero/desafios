@@ -10,9 +10,11 @@
 (struct ls-struct (options directory) #:transparent);
 (struct cd-struct (directory) #:transparent);
 (struct mkdir-struct (directory) #:transparent);
+(struct cat-struct (l) #:transparent);
+(struct man-struct (name) #:transparent);
 
 (define (parser str)
-  (peg shell str))
+  (peg shell str));
 
 (define (red v l)
   (if (null? l) v
@@ -24,22 +26,34 @@ shell <- _ logic _;
 logic <- v1:redirect _ v2:((logicOperator _ redirect _)*) -> (red v1 v2);
 logicOperator <- v:('&&' / '||' ) -> (if (equal? v "&&") and-struct or-struct);
 
-redirect <- v1:(pipeline) _ v2:(input-redirect?) _ v3:(output-redirect?) -> (if v3
+redirect <- v1:(pipeline?) _ v2:(input-redirect?) _ v3:(output-redirect?) -> (if v3
                                                                            (out-redirect (if v2 (in-redirect v1 v2) v1) v3)
                                                                            (if v2 (in-redirect v1 v2) v1));
 input-redirect <- '<' _ v:name _ -> v;
 output-redirect <- '>' _ v:name _ -> v;
 pipeline <- v1:simpleCommand _ v2:((pipe _ simpleCommand _ )*) -> (red v1 v2);
 pipe <- '|' -> pipe-struct;
-simpleCommand <- ls / cd / mkdir / cat / less / more / find / man / l;
+simpleCommand <- ls / cd / mkdir / cat / less / more / man / l;
 
 ls <- 'ls' _ v1:options-ls _ v2:name -> (ls-struct v1 v2);
 options-ls <- '-l'?;
 
 
 cd <- 'cd' _ v:name -> (cd-struct v);
-name <- [a-zA-Z]+;
+name <- [a-zA-Z.]+;
 
 mkdir <- 'mkdir' _ v:name -> (mkdir-struct v);
 
-cat <- 'cat' _ 
+cat <- 'cat' _ v1:name v2:((_ name)*) -> (cat-struct (cons v1 v2));
+
+less <- 'less' _ v1:name -> (less-struct v1);
+
+more <- 'more' _ v1:name -> (more-struct v1);
+
+man <- 'man' _ v1:name -> (man-struct v1);
+
+l <- 'l' _ v1:name -> (ls-struct "-l" v1);
+
+
+
+
