@@ -4,7 +4,10 @@
 (require "shell.rkt")
 
 (define (system-message str)
-  (display (string-append "\x1B[31m" str "\x1B[0m")))
+  (let ([s (string-append "\x1B[31m" str "\x1B[0m")])
+    (display (string-length s))
+    (newline)
+    (display s)))
 
 
 (define (loop user)
