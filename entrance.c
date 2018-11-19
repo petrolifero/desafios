@@ -1,6 +1,11 @@
 //Abandone os pids, mantenha os forks
 //crie dois pipes nomeados explicitamente
-//com mknod : system("mknod /home/$USER/.desafios/input")
+//com mknod : mknod função a partir de 
+//sys/types.h
+//sys/stat.h
+//fcntl.h
+//unistd.h
+
 
 //
 
