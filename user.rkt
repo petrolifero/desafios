@@ -17,13 +17,15 @@
     (display s)))
 
 
-(struct user (name level) #:transparent)
+(struct quest (name prepare prerequisites text verify) #:transparent)
+(struct user (name level quests) #:transparent)
 
 (define (create-user name)
   (let* ([home (format "/home/~a" name)]
          [config-file (format "~a/.desafios.user" home)]
          [level (call-with-input-file config-file (lambda (in) (port->string in)))])
-         (user name level)))
+	(let-values ([(level quests) (parse-config-file level)])
+		(user name level quests))))
 
 (define (can-execute? user command)
   (and

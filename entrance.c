@@ -1,5 +1,13 @@
+//Abandone os pids, mantenha os forks
+//crie dois pipes nomeados explicitamente
+//com mknod : system("mknod /home/$USER/.desafios/input")
+
+//
+
 #include <stdio.h>
 #include <unistd.h> // for pipe and fork
+#include <readline/readline.h>
+#include <readline/history.h>
 
 #define WRITETO 1
 #define READFROM 0
@@ -23,9 +31,6 @@ int main(int argc, char* argv[])
     FILE* in,*out;
     close(c2racket[WRITETO]);
     close(racket2c[READFROM]);
-    in=fdopen(c2racket[READFROM],"r");
-    out=fdopen(racket2c[WRITETO], "w");
-    freopen();
     
   }
   else //parent -- c
