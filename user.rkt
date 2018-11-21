@@ -30,7 +30,7 @@
 
 (define (expand-quests name-quest)
   (let ([quest-path (string-append "/var/games/desafios/" name-quest)])
-    
+    ...)) #TODO : whats the quest file structure??????
 
 (define (can-execute? user command)
   (and
@@ -38,10 +38,7 @@
     (level-allow? (user-level user) command)))
     
 (define (quests user)
-  (let* ([home (format "/home/~a" (user-name user))]
-         [config-file (format "~a/.desafios.quests" home)]
-         [quests (call-with-input-file config-file (lambda (in) (string-split (port->string in) "\n")))])
-         quests))
+         (user-quests user))
 
 (define (quest-allow? l c)
   (if (equal? c #f)
