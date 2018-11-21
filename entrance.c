@@ -1,13 +1,8 @@
-//Abandone os pids, mantenha os forks
-//crie dois pipes nomeados explicitamente
-//com mknod : mknod função a partir de 
-
-//por hora crie os pipes na mão, depois se
-//vira
-
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <signal.h>
+
 
 #include <stdio.h>
 #include <string.h>
@@ -33,19 +28,37 @@ int main(int argc, char* argv[])
   {
 	/*
 		read prompt from racket
+
 		print prompt
 		read command input
+
 		put command to racket
+
 		read response
+		
 		print response to user
 		repeat
 	*/
-	int size;
-	FILE* fp=fopen(pathPipe,"rw");
-	fscanf(fp,"%d", &size);
-	char *prompt = (char*)calloc(sizeof(char)*(size+1));
-	fget(prompt,size,fp);
-	char* input = readline(prompt);
+	while(1)
+	{
+	char* prompt=readFrom();
+
+	char* command=readline(prompt);
+	if(!strcmp(command,"exit"))
+	{
+		free(prompt);
+		free(command);
+		kill(childPid,SIGKILL);
+		return 0;
+	}
+	printTo(command);
+
+	free(command);
+	free(prompt);
+	prompt=readFrom();
+	puts(prompt);
+	free(prompt);
+	}
 	
   }
   return 0;
