@@ -8,13 +8,15 @@
   (let ([s (string-append "\x1B[31m" str "\x1B[0m")])
     (display (string-length s))
     (newline)
-    (display s)))
+    (display s)
+    (newline)))
 
 (define (command-message str)
   (let ([s (string-append "\x1B[35m" str "\x1B[0m")])
     (display (string-length s))
     (newline)
-    (display s)))
+    (display s)
+    (newline)))
 
 
 (struct quest (name prepare prerequisites text verify) #:transparent)
@@ -23,9 +25,8 @@
 (define (create-user name)
   (let* ([home (format "/home/~a" name)]
          [config-file (format "~a/.desafios.user" home)]
-         [level (call-with-input-file config-file (lambda (in) (port->string in)))])
-	(let-values ([(level quests) (parse-config-file level)])
-		(user name level quests))))
+         [lines (call-with-input-file config-file (lambda (in) (port->lines in)))])
+	(user name (string->number (car lines)) (cdr lines))))
 
 (define (can-execute? user command)
   (and
