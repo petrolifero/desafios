@@ -19,4 +19,7 @@
 
 
 (let ([user (create-user (getenv "USER"))])
-  (loop user))
+  (with-output-to-file (string-append (getenv "HOME") "/.desafios/inC")
+	(lambda ()
+	  (with-input-from-file (string-append (getenv "HOME") "/.desafios/outC")
+		(lambda ()  (loop user))))))
