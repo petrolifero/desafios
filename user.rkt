@@ -26,11 +26,15 @@
   (let* ([home (format "/home/~a" name)]
          [config-file (format "~a/.desafios.user" home)]
          [lines (call-with-input-file config-file (lambda (in) (port->lines in)))])
-	(user name (string->number (car lines)) (cdr lines))))
+	(user name (car lines) (map expand-quests (cdr lines)))))
+
+(define (expand-quests name-quest)
+  (let ([quest-path (string-append "/var/games/desafios/" name-quest)])
+    
 
 (define (can-execute? user command)
   (and
-    (quest-allow? (quests user) command)
+    (quest-allow? (user-quests user) command)
     (level-allow? (user-level user) command)))
     
 (define (quests user)
