@@ -13,6 +13,11 @@
 char* readFrom(char* f)
 {
 	FILE* input = fopen(f,"r");
+	if(!input)
+	{
+		fprintf(stderr,"Deu merda\n");
+		exit(1);
+	}
 	int size;
 	char* string;
 	fscanf(input,"%d", &size);
@@ -25,6 +30,11 @@ char* readFrom(char* f)
 void printTo(char* f, char* content)
 {
 	FILE* output = fopen(f,"r");
+	if(!output)
+	{
+		fprintf(stderr,"Deu merda2\n");
+		exit(2);
+	}
 	fprintf(output,"%s\n", content);
 	fclose(output);
 }
@@ -68,7 +78,6 @@ int main(int argc, char* argv[])
 	while(1)
 	{
 	char* prompt=readFrom(inPipe);
-
 	char* command=readline(prompt);
 	if(!strcmp(command,"exit"))
 	{
