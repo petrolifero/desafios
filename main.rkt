@@ -7,6 +7,10 @@
 
 
 (define (loop user)
+  (let ([prompt (format "~a@desafios:~a " (name user) (current-directory user))])
+	  (display (string-length prompt))
+	  (newline)
+	  (display prompt))
   (let ([line (call-with-exception-handler (lambda (e) #f) (lambda () (parser (read-line))))])
     (if (can-execute? user line)
         (execute-shell line user)
