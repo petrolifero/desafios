@@ -4,10 +4,8 @@
 (require "shell.rkt")
 
 
-
-
 (define (loop user)
-  (let ([prompt (format "~a@desafios:~a " (name user) (current-directory user))])
+  (let ([prompt (format "~a@desafios:~a " (user-name user) (current-directory user))])
 	  (display (string-length prompt))
 	  (newline)
 	  (display prompt))
