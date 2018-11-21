@@ -3,16 +3,42 @@
 #include <fcntl.h>
 #include <signal.h>
 
-
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h> 
 #include <readline/readline.h>
 #include <readline/history.h>
 
+char* readFrom(char* f)
+{
+	FILE* input = fopen(f,"r");
+	int size;
+	char* string;
+	fscanf(input,"%d", &size);
+	string=(char*)calloc(size+1,sizeof(char));
+	fscanf(input,"%s", string);
+	fclose(input);
+	return string;
+}
+
+void printTo(char* f, char* content)
+{
+	FILE* output = fopen(f,"r");
+	fprintf(output,"%s\n", content);
+	fclose(output);
+}
 
 int main(int argc, char* argv[])
 {
+  char* outPipe = (char*) calloc(1001,sizeof(char));
+  char* inPipe = (char*) calloc(1001,sizeof(char));
+  int childPid=0;
+  strcat(outPipe, getenv("HOME"));
+  strcat(outPipe, "/.desafios/outC");
+  
+  strcat(inPipe,getenv("HOME"));
+  strcat(inPipe,"/.desafios/inC");
   childPid=fork();
   if(childPid<0)
   {
@@ -41,7 +67,7 @@ int main(int argc, char* argv[])
 	*/
 	while(1)
 	{
-	char* prompt=readFrom();
+	char* prompt=readFrom(inPipe);
 
 	char* command=readline(prompt);
 	if(!strcmp(command,"exit"))
@@ -51,11 +77,11 @@ int main(int argc, char* argv[])
 		kill(childPid,SIGKILL);
 		return 0;
 	}
-	printTo(command);
+	printTo(outPipe,command);
 
 	free(command);
 	free(prompt);
-	prompt=readFrom();
+	prompt=readFrom(inPipe);
 	puts(prompt);
 	free(prompt);
 	}
