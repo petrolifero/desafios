@@ -26,6 +26,7 @@
   (let* ([home (format "/home/~a" name)]
          [config-file (format "~a/.desafios.user" home)]
          [lines (call-with-input-file config-file (lambda (in) (port->lines in)))])
+    	(current-directory home)
 	(user name (car lines))))
 
 (define (can-execute? user command)
@@ -39,20 +40,28 @@
 (define (level-allow? l c)
   (if (equal? c #f)
     #f
-    #t))
+    ((level-quest l) c)))
 
 
+(define (execute-shell! l u)
+  (match l
+	 [(cd-struct new-directory) (set-user-current-directory! u (simplify-path new-directory))]
+	 [(ls-struct ]
+
+
+#|
 (define (destroy line)
   (match line
     [#f (format "printf ~a" (system-message "Este não é um comando valido\n"))]
     [(list) "printf \"\n\""]
     [(pipeline-struct c1 c2) (string-append (destroy c1) " | " (destroy c2))]))
+|#
 
-
+#|
 ;https://docs.racket-lang.org/reference/subprocess.html
 (define (execute-shell line user)
   (let ([command-str (destroy line)])
     (with-output-to-string (lambda () (system command-str)))))
     
     
-
+|#

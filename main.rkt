@@ -1,23 +1,90 @@
 #lang racket
 
-(require "user.rkt")
-(require "shell.rkt")
+(define (system-message str)
+  (let ([s (string-append "\x1B[31m" str "\x1B[0m")])
+    (display s)
+    (newline)))
+
+(define (command-message str)
+  (let ([s (string-append "\x1B[35m" str "\x1B[0m")])
+    (display s)
+    (newline)))
+
+(define (red l)
+  (if (null? l)
+      ""
+      (if (null? (cdr l))
+	  (car l)
+	  (red (cons (string-append (car l) "\n" (cadr l) "\n") (cddr l))))))
+
+(define user (getenv "USER"))
+(define home (getenv "HOME"))
+
+(current-directory home)
+
+(system-message "você esta no tutorial, dentro do seu diretorio pessoal. Comece apertando ls com enter depois para ver o conteudo da sua pasta pessoal\n")
+(display (format "~a@desafios:~a " (getenv "USER") (current-directory)))
+(let loop ((x (read-line)))
+	(if (equal? x "ls")
+		(begin
+		  	(command-message (red (map path->string (directory-list (current-directory)))))
+			(system-message (format "Olha só o conteudo do seu diretorio. Reparou no textinho antes de você digitar ls? Ele mostra que você se chama ~a e esta atualmente dentro do diretorio(um nome pomposo para pasta) ~a\n" user (current-directory))))
+		(begin
+		  	(system-message (format "Não não. Você digitou ~a, era para ter digitado ls. Por favor, tente de novo.\n" x))
+			(display (format "~a@desafios:~a " (getenv "USER") (current-directory)))
+			(loop (read-line)))))
 
 
-(define (loop user)
-  (let ([prompt (format "~a@desafios:~a " (user-name user) (current-directory user))])
-	  (display (string-length prompt))
-	  (newline)
-	  (display prompt))
-  (let ([line (call-with-exception-handler (lambda (e) #f) (lambda () (parser (read-line))))])
-    (if (can-execute? user line)
-        (execute-shell line user)
-        (system-message "Voce nao pode executar esse comando ainda.")))
-     (loop user))
+(system-message "Agora vamos criar um diretorio para você. Pode escolher o nome. Se quiser criar desafios, digite \"mkdir desafios\"\n")
+
+(display (format "~a@desafios:~a " (getenv "USER") (current-directory)))
+(let loop ((x (read-line)))
+	(if (string-prefix? x "mkdir")
+		(begin
+		  	(make-directory* (car (string-split x "mkdir ")))
+			(system-message (format "Olha só, seu diretorio foi criado\n")))
+		(begin
+		  	(system-message (format "Não não. Você digitou ~a, era para ter digitado algum mkdir. Por favor, tente de novo.\n" x))
+			(display (format "~a@desafios:~a " (getenv "USER") (current-directory)))
+			(loop (read-line)))))
+
+(system-message "Você criou o diretorio que especificou... Será mesmo??\n")
+(system-message "Não confie em mim. Dê um \"ls nome do diretorio\" para verificar\n")
+
+(display (format "~a@desafios:~a " (getenv "USER") (current-directory)))
+(let loop ((x (read-line)))
+	(if (string-prefix? x "ls")
+		(begin
+		  	(command-message (red (map path->string (directory-list (car (string-split x "ls "))))))
+			(system-message (format "Olha só o conteudo do seu diretorio novo... Ué, sem nada? Relaxa, ela só esta vazia. Agora tem sua nova pasta.\nSe ela não existisse, ia aparecer uma mensagem de erro. \n")))
+		(begin
+		  	(system-message (format "Não não. Você digitou ~a, era para ter digitado ls. Por favor, tente de novo.\n" x))
+			(display (format "~a@desafios:~a " (getenv "USER") (current-directory)))
+			(loop (read-line)))))
+
+(system-message "Agora vamos entrar nesse diretorio e fazer as quests ali. Para viajar pelos diretorios usamos o comando cd. digite \"cd nome-do-seu-diretorio\" para entrar nessa pasta.")
+
+(display (format "~a@desafios:~a " (getenv "USER") (current-directory)))
+(let loop ((x (read-line)))
+	(if (string-prefix? x "cd")
+		(begin
+		  	(current-directory (car (string-split x "cd "))))
+		(begin
+		  	(system-message (format "Não não. Você digitou ~a, era para ter digitado cd com algum diretorio. Por favor, tente de novo.\n" x))
+			(display (format "~a@desafios:~a " (getenv "USER") (current-directory)))
+			(loop (read-line)))))
 
 
-(let ([user (create-user (getenv "USER"))])
-  (with-output-to-file (string-append (getenv "HOME") "/.desafios/inC")
-	(lambda ()
-	  (with-input-from-file (string-append (getenv "HOME") "/.desafios/outC")
-		(lambda ()  (loop user))))))
+(system-message "Olhe só o que você fez : Note a mudança\n")
+(system-message "quando notar, digite next e você oficialmente saiu do tutorial.A partir de agora, não terão mais tantas mensagens do sistema, vermelhas assim para te guiar, você estará mais livre. Não se amedronte, a primeira quest da nova vida será sobre o manual para pedir ajuda :)\n")
+
+(display (format "~a@desafios:~a " (getenv "USER") (current-directory)))
+(let loop ((x (read-line)))
+	(if (equal? x "next")
+	    (void)
+	    (begin
+	      (system-message "Não não, digite next \n")
+	      (display (format "~a@desafios:~a " (getenv "USER") (current-directory)))
+	      (loop (read-line)))))
+
+
