@@ -29,13 +29,8 @@
 	(user name (car lines))))
 
 (define (can-execute? user command)
-  (and
-    (quest-allow? (user-quests user) command)
-    (level-allow? (user-level user) command)))
+    (level-allow? (user-level user) command))
     
-(define (quests user)
-         (user-quests user))
-
 (define (quest-allow? l c)
   (if (equal? c #f)
     #f
