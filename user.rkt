@@ -20,17 +20,13 @@
 
 
 (struct quest (name prepare prerequisites text verify) #:transparent)
-(struct user (name level quests) #:transparent)
+(struct user (name level) #:transparent)
 
 (define (create-user name)
   (let* ([home (format "/home/~a" name)]
          [config-file (format "~a/.desafios.user" home)]
          [lines (call-with-input-file config-file (lambda (in) (port->lines in)))])
-	(user name (car lines) (map expand-quests (cdr lines)))))
-
-(define (expand-quests name-quest)
-  (let ([quest-path (string-append "/var/games/desafios/" name-quest)])
-    ...)) #TODO : whats the quest file structure??????
+	(user name (car lines))))
 
 (define (can-execute? user command)
   (and
