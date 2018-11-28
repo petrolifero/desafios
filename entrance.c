@@ -58,7 +58,7 @@ int main(int argc, char* argv[])
   }
   if(childPid == 0) //child -- racket
   {
-    execl("racket","desafios.rkt",(char*)NULL);
+    execl("racket","/usr/bin/desafios.rkt",(char*)NULL);
   }
   else //parent -- c
   {
