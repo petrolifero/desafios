@@ -30,17 +30,13 @@
 
 (define (can-execute? user command)
     (level-allow? (user-level user) command))
-    
-(define (quest-allow? l c)
-  (if (equal? c #f)
-    #f
-    #t))
-  
+
+(define (level-quest
+
 (define (level-allow? l c)
   (if (equal? c #f)
     #f
     #t))
-
 
 
 (define (destroy line)
