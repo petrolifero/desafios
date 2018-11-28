@@ -87,4 +87,36 @@
 	      (display (format "~a@desafios:~a " (getenv "USER") (current-directory)))
 	      (loop (read-line)))))
 
+;;; Fim do tutorial
+;;; Como mostro as quests disponiveis? Antes havia uma linha reta de quests, depois havia o comando desafios
+;;; Agora, que esse comando foi descartado por ser complexo para o usuario, como seria a melhor forma de apresentar os caminhos???
+
+
+;;;             --------------------------
+;;;             |                        |
+;;; level 1 -> man     -> ls -la         |
+;;;         -> ls -l   /                 |
+;;;         -> cd ..   -------------------> cd .
+
+;;; como mostrar as quests disponiveis??
+
+
+(system-message "Bem-vindo ao level 1.\n")
+(system-message "")
+(display (format "~a@desafios:~a " (getenv "USER") (current-directory)))
+(let loop ((x (read-line)))
+  (display x)
+  (newline)
+  (display (format "~a@desafios:~a " (getenv "USER") (current-directory)))
+  (loop (read-line)))
+
+
+
+
+
+
+
+
+
+
 
