@@ -31,7 +31,10 @@
 (define (can-execute? user command)
     (level-allow? (user-level user) command))
 
-(define (level-quest
+(define (level-quest l)
+  (match l
+	 ["tutorial-0" ]
+	 []))
 
 (define (level-allow? l c)
   (if (equal? c #f)
