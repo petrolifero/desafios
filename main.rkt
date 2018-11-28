@@ -105,6 +105,7 @@
 (system-message "")
 (display (format "~a@desafios:~a " (getenv "USER") (current-directory)))
 (let loop ((x (read-line)))
+  (if (equal? x "exit") (exit 0) (void))
   (display x)
   (newline)
   (display (format "~a@desafios:~a " (getenv "USER") (current-directory)))
