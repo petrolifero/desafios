@@ -14,6 +14,7 @@
 (struct man-struct (name) #:transparent);
 (struct less-struct (name) #:transparent);
 (struct more-struct (name) #:transparent);
+(struct echo-struct (a) #:transparent);
 
 (define (parser str)
   (peg shell str));
@@ -40,7 +41,7 @@ input-redirect <- '<' _ v:name _ -> v;
 output-redirect <- '>' _ v:name _ -> v;
 pipeline <- v1:simpleCommand _ v2:((pipe _ simpleCommand _ )*) -> (red v1 v2);
 pipe <- '|' -> pipe-struct;
-simpleCommand <- ls / cd / mkdir / cat / less / more / man / l;
+simpleCommand <- ls / cd / mkdir / cat / less / more / man / l / echo;
 
 ls <- 'ls' _ v1:options-ls _ v2:name? -> (ls-struct v1 v2);
 options-ls <- '-l'?;
@@ -61,3 +62,4 @@ man <- 'man' _ v1:name -> (man-struct v1);
 
 l <- 'l' _ v1:name? -> (ls-struct "-l" v1);
 
+echo <- 'echo' _ v:([a-zA-Z ]*) -> (echo-struct v);
