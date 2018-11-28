@@ -33,8 +33,8 @@
 
 (define (level-quest l)
   (match l
-	 ["tutorial-0" ]
-	 []))
+	 ["tutorial-0" (lambda (c) (ls-struct? c))]
+	 ["tutorial-1" (lambda (c) (cd-struct? c))]))
 
 (define (level-allow? l c)
   (if (equal? c #f)
