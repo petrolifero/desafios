@@ -1,5 +1,7 @@
 #lang peg
 
+(require "shell.rkt");
+
 (define (parser-quest port)
   (peg quest (port->string port)));
 
