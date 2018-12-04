@@ -1,6 +1,5 @@
 #lang peg
 
-(require "shell.rkt");
 
 (struct or-struct (a b) #:transparent);
 (struct and-struct (a b) #:transparent);
