@@ -18,7 +18,7 @@
 (struct echo-struct (a) #:transparent);
 
 (define (parser str)
-  (peg shell str));
+  (peg top-shell str));
 
 (define (red v l)
   (if (null? l) v
@@ -30,8 +30,9 @@
     [a a]));
 
 EOI < ! . ;
-_ < [ \t\n]* ;
-shell <- _ v:logic _ EOI -> v;
+_ < [ \t]* ;
+top-shell <- _ shell _ EOI ;
+shell <- _ v:logic _ -> v;
 logic <- v1:redirect _ v2:((logicOperator _ redirect _)*) -> (red v1 v2);
 logicOperator <- v:('&&' / '||' ) -> (if (equal? v "&&") and-struct or-struct);
 
