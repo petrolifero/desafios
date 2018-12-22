@@ -22,7 +22,7 @@
 
 (current-directory home)
 
-(system-message "você esta no tutorial, dentro do seu diretorio pessoal. Comece apertando ls com enter depois para ver o conteudo da sua pasta pessoal\n")
+(system-message "you are in the tutorial, inside your personal directory. Start by pressing ls with enter to view the contents of your home folder")
 (display (format "~a@desafios:~a " (getenv "USER") (current-directory)))
 (let loop ((x (read-line)))
 	(if (equal? x "ls")
