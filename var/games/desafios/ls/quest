@@ -1,0 +1,5 @@
+quest ls
+	echo Você esta no tutorial, dentro do seu diretorio pessoal. Comece apertando ls com enter depois para ver o conteudo  da sua pasta pessoal;
+	exec ls;
+	echo Olha só o conteudo do seu diretorio. Reparou no textinho antes de você digitar ls? Ele mostra que você chama ~a e esta atualmente dentro do diretorio(um nome pomposo para pasta) ~a;
+tseuq
