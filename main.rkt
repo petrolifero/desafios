@@ -1,5 +1,12 @@
 #lang racket
 
+
+(require "shell.rkt")
+
+(define (man str)
+	(assoc str '(("man" ""))))
+
+
 (define (system-message str)
   (let ([s (string-append "\x1B[31m" str "\x1B[0m")])
     (display s)
@@ -102,7 +109,19 @@
 
 
 (system-message "Bem-vindo ao level 1.\n")
-(system-message "")
+(system-message "Sua primeira missão é aprender a usar o manual do sistema\n")
+(system-message "Como dito anteriormente, a partir de agora você estará andando mais solto\n")
+(system-message "digite \"man man\" para abrir a pagina do manual sobre o proprio manual")
+
+(let loop ((x (read-line)))
+  (if (equal? x "man man")
+	(man "man")
+	(void))
+  (display (format "~a@desafios:~a " (getenv "USER") (current-directory)))
+  (loop (read-line)))
+
+
+
 (display (format "~a@desafios:~a " (getenv "USER") (current-directory)))
 (let loop ((x (read-line)))
   (if (equal? x "exit") (exit 0) (void))

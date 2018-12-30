@@ -31,7 +31,7 @@
 
 EOI < ! . ;
 _ < [ \t]* ;
-top-shell <- _ shell _ EOI ;
+top-shell <- _ v:shell _ EOI -> v;
 shell <- _ v:logic _ -> v;
 logic <- v1:redirect _ v2:((logicOperator _ redirect _)*) -> (red v1 v2);
 logicOperator <- v:('&&' / '||' ) -> (if (equal? v "&&") and-struct or-struct);
@@ -46,7 +46,7 @@ pipe <- '|' -> pipe-struct;
 simpleCommand <- ls / cd / mkdir / cat / less / more / man / l / echo;
 
 ls <- 'ls' _ v1:options-ls _ v2:name? -> (ls-struct v1 v2);
-options-ls <- '-l'?;
+options-ls <- ('-l' / '-la' / '-a')?;
 
 
 cd <- 'cd' _ v:name -> (cd-struct v);
