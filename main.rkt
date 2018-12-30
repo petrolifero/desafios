@@ -4,7 +4,9 @@
 (require "shell.rkt")
 
 (define (man str)
-	(assoc str '(("man" ""))))
+	(assoc str '(
+			("man" (file->string "temp"))
+		    )))
 
 
 (define (system-message str)
