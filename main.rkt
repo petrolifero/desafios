@@ -1,11 +1,18 @@
 #lang racket
 
 
+(provide (all-defined-out))
+
 (require "shell.rkt")
 
+(module+ test
+	(require rackunit)
+	(display (man "man")))
+
+
 (define (man str)
-	(assoc str '(
-			("man" (file->string "temp"))
+	(assoc str `(
+			("man" ,(file->string "/home/joao/desafios/desafios/temp"))
 		    )))
 
 
@@ -115,12 +122,16 @@
 (system-message "Como dito anteriormente, a partir de agora você estará andando mais solto\n")
 (system-message "digite \"man man\" para abrir a pagina do manual sobre o proprio manual")
 
+
+(display (format "~a@desafios:~a " (getenv "USER") (current-directory)))
 (let loop ((x (read-line)))
   (if (equal? x "man man")
 	(man "man")
-	(void))
-  (display (format "~a@desafios:~a " (getenv "USER") (current-directory)))
-  (loop (read-line)))
+	(if (equal? x "exit")
+		(exit 0)
+		(begin
+		  (display (format "~a@desafios:~a " (getenv "USER") (current-directory)))
+		  (loop (read-line))))))
 
 
 
@@ -138,7 +149,7 @@
 	(require rackunit))
 
 
-
+(main)
 
 
 

@@ -17,6 +17,8 @@
 (struct more-struct (name) #:transparent);
 (struct echo-struct (a) #:transparent);
 
+(struct env-variable (a) #:transparent);
+
 (define (parser str)
   (peg top-shell str));
 
@@ -28,6 +30,29 @@
   (match l
     [(list (list a ...)) (flat a)]
     [a a]));
+
+(module+ test
+	(require rackunit)
+	(check-equal?
+		(parser "echo ola")
+		(echo-struct "ola")
+		"string simples")
+	(check-equal?
+		(parser "echo Seu nome é Joao")
+		(echo-struct "Seu nome é Joao")
+		"acento agudo")
+	(check-equal?
+		(parser "echo Seu nome é João")
+		(echo-struct "Seu nome é João")
+		"Til")
+	(check-equal?
+		(parser "echo Seu nome é $USER")
+		(echo-struct (list "Seu nome é " (env-variable "USER")))
+		"Variavel de ambiente")
+	(check-equal?
+		(parser "echo Seu nome é $USER Silva")
+		(echo-struct (list "Seu nome é " (env-variable "USER") " Silva"))
+		"Variavel de ambiente no meio de strings"));
 
 EOI < ! . ;
 _ < [ \t]* ;
@@ -64,4 +89,7 @@ man <- 'man' _ v1:name -> (man-struct v1);
 
 l <- 'l' _ v1:name? -> (ls-struct "-l" v1);
 
-echo <- 'echo' _ v:([a-zA-Z ]*) -> (echo-struct v);
+echo <- 'echo' _ v:((string / env-variable)*) -> (echo-struct v);
+string <- [a-zA-Z 0-9éã]+;
+env-variable <- '$' name:([a-zA-Z]+) -> (env-variable name);
+
