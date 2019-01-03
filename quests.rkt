@@ -5,7 +5,7 @@
 (struct idt (a) #:transparent);
 (struct seq (a b) #:transparent);
 (struct exec (a) #:transparent);
-
+(provide (all-from-out "shell.rkt"));
 
 //(string (listOf Idt) Command . -> . Quest)
 (struct quest (name pre c) #:transparent);
@@ -15,28 +15,6 @@
 (define (parser-quest str)
   (peg top-quest str));
 
-(module+ test
-	(require rackunit)
-	(check-equal?
-		(quest (idt "ls") (list (idt "tutorial")) (echo-struct "ola"))
-		(parser-quest "quest ls
-				echo ola;
-				tseuq")
-		"Sem prerequisitos, um único comando")
-	(check-equal?
-		(parser-quest "quest ls < tutorial echo ola; tseuq")
-		(quest
-			(idt "ls")
-			(list (idt "tutorial"))
-			(echo-struct "ola"))
-		"Com prerequisitos, apenas tutorial, um único comando")
-	(check-equal?
-		(parser-quest "quest ls < a,b,c,d echo ola; exec ls -l; tseuq")
-		(quest
-			(idt "ls")
-			(list (idt "a") (idt "b") (idt "c") (idt "d")) 
-			(seq (echo-struct "ola") (exec (ls-struct "-l" (list)))))
-		"Com prerequisitos, varios prerequisitos, multiplos comandos"));
 _ < [ \t\n]* ;
 sep < [ \t]* ;
 EOI < ! . ;

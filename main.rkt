@@ -9,11 +9,14 @@
 	(require rackunit)
 	(display (man "man")))
 
+;TODO
+(define (paginate str)
+	(display str))
 
 (define (man str)
-	(assoc str `(
-			("man" ,(file->string "/home/joao/desafios/desafios/temp"))
-		    )))
+	(system-message (cadr (assoc str `(
+			("man" ,(file->string "/home/petrolifero/desafios/desafios/temp"))
+		    )))))
 
 
 (define (system-message str)
@@ -144,12 +147,6 @@
   (loop (read-line))))
 
 
-
-(module+ test
-	(require rackunit))
-
-
-(main)
 
 
 
