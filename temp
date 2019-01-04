@@ -1,20 +1,14 @@
 MAN                                  Pagina do Manual
-
 Nome
        man - uma interface com o manual do jogo
-
 SINOPSE
        man programa
-
 DESCRIÇÃO
        man é o manual do jogo. O argumento dado para man, acima denominado de "programa"
        representa o nome de um programa dentro do jogo, como "man" ou "ls".
        apenas serão mostrados os manuais dos comandos que você já executou. Se nunca
        usou ls, quando chamar "man ls" receberá uma pagina de erro informando desse fato.
        Se já usou, receberá uma pagina como essa, mas apropriada ao comando que pediu.
-       
-       Se quiser sair dessa pagina, aperte "q". Se quiser ver mais embaixo, aperte a seta
-       para baixo, e para cima a mesma coisa.
 
        As paginas virão formatadas em algumas seções, a saber : no alto da pagina virá o
        nome do comando e uma breve descrição. Logo abaixo virá a sinopse, que é um padrão

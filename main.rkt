@@ -14,7 +14,7 @@
 	(display str))
 
 (define (man str)
-	(system-message (cadr (assoc str `(
+	(command-message (cadr (assoc str `(
 			("man" ,(file->string "/home/petrolifero/desafios/desafios/temp"))
 		    )))))
 
@@ -136,6 +136,10 @@
 		  (display (format "~a@desafios:~a " (getenv "USER") (current-directory)))
 		  (loop (read-line))))))
 
+
+(system-message "Muito bem, completou sua primeira quest. Agora pode usar o comando desafios.\n")
+(system-message "Pode usar \"man desafios\" para ver suas opcoes. Leia atentamente.\n")
+(system-message "Pois la tera como acessar suas proximas quests")
 
 
 (display (format "~a@desafios:~a " (getenv "USER") (current-directory)))
