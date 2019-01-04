@@ -5,9 +5,6 @@
 
 (require "shell.rkt")
 
-(module+ test
-	(require rackunit)
-	(display (man "man")))
 
 ;TODO
 (define (paginate str)
