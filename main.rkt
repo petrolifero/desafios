@@ -15,7 +15,8 @@
 
 (define (man str)
 	(command-message (cadr (assoc str `(
-			("man" ,(file->string "/home/petrolifero/desafios/desafios/temp"))
+			("man" ,(file->string "/home/petrolifero/desafios/desafios/man/man"))
+			("desafios" ,(file->string "/home/petrolifero/desafios/desafios/man/desafios"))
 		    )))))
 
 
