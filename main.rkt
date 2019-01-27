@@ -10,8 +10,11 @@
 (define (paginate str)
 	(display str))
 
+(define (less str)
+	(command-message str))
+
 (define (man str)
-	(command-message (cadr (assoc str `(
+	(less (cadr (assoc str `(
 			("man" ,(file->string "/home/petrolifero/desafios/desafios/man/man"))
 			("desafios" ,(file->string "/home/petrolifero/desafios/desafios/man/desafios"))
 		    )))))
