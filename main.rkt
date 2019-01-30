@@ -6,10 +6,6 @@
 (require "shell.rkt")
 
 
-;TODO
-(define (paginate str)
-	(display str))
-
 (define (less str)
 	(command-message str))
 
@@ -37,8 +33,24 @@
 	  (car l)
 	  (red (cons (string-append (car l) "\n" (cadr l) "\n") (cddr l))))))
 
+;env variable
 (define user (getenv "USER"))
 (define home (getenv "HOME"))
+
+
+(define next-string "")
+(define next-command "")
+
+
+
+
+(define (refine-main)
+	(display next-string) ;;feito
+	(set! next-command (parse (my-read-line))) ;;TODO my-read-line
+	(execute next-command) ;;TODO execute
+	(refine-main)) ;;feito
+
+
 (define (main)
 	(current-directory home)
 
