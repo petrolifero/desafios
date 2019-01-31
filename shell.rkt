@@ -1,6 +1,7 @@
 #lang peg
 
-
+(struct exit-ausente () #:transparent);
+(struct exit-struct (a) #:transparent);
 (struct or-struct (a b) #:transparent);
 (struct and-struct (a b) #:transparent);
 (struct pipe-struct (a b) #:transparent);
@@ -46,7 +47,7 @@ input-redirect <- '<' _ v:name _ -> v;
 output-redirect <- '>' _ v:name _ -> v;
 pipeline <- v1:simpleCommand _ v2:((pipe _ simpleCommand _ )*) -> (red v1 v2);
 pipe <- '|' -> pipe-struct;
-simpleCommand <- ls / cd / mkdir / cat / less / more / man / l / echo;
+simpleCommand <- ls / cd / mkdir / cat / less / more / man / l / echo / exit;
 
 ls <- 'ls' _ v1:options-ls _ v2:name? -> (ls-struct v1 v2);
 options-ls <- ('-l' / '-la' / '-a')?;
@@ -70,4 +71,6 @@ l <- 'l' _ v1:name? -> (ls-struct "-l" v1);
 echo <- 'echo' _ v:((string / env-variable)*) -> (echo-struct v);
 string <- [a-zA-Z 0-9éã]+;
 env-variable <- '$' name:([a-zA-Z]+) -> (env-variable name);
+
+exit <- 'exit' _ v:exit-code -> (exit-struct v);
 

@@ -41,6 +41,9 @@
 (define next-string "")
 (define next-command "")
 
+(define (execute c)
+	(match c
+		[(exit]
 
 
 
