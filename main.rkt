@@ -41,15 +41,17 @@
 (define next-string "")
 (define next-command "")
 
+(define (my-read-line) (read-line))
+
 (define (execute c)
 	(match c
-		[(exit]
+		[(exit-struct a) (exit a)]))
 
 
 
 (define (refine-main)
 	(display next-string) ;;feito
-	(set! next-command (parse (my-read-line))) ;;TODO my-read-line
+	(set! next-command (parser (my-read-line))) ;;TODO my-read-line
 	(execute next-command) ;;TODO execute
 	(refine-main)) ;;feito
 

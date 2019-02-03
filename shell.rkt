@@ -73,4 +73,6 @@ string <- [a-zA-Z 0-9éã]+;
 env-variable <- '$' name:([a-zA-Z]+) -> (env-variable name);
 
 exit <- 'exit' _ v:exit-code -> (exit-struct v);
+exit-code <- number;
+number <- v:([0-9]+) -> (string->number v);
 
