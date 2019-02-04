@@ -2,4 +2,4 @@
 
 (require "main.rkt")
 
-(main)
+(refine-main)

@@ -41,6 +41,7 @@
 (define next-string "")
 (define next-command "")
 
+
 (define (my-read-line) (read-line))
 
 (define (execute c)
@@ -167,7 +168,6 @@
   (newline)
   (display (format "~a@desafios:~a " (getenv "USER") (current-directory)))
   (loop (read-line))))
-
 
 
 
