@@ -46,7 +46,17 @@
 
 (define (execute c)
 	(match c
-		[(exit-struct a) (exit a)]))
+		[(exit-struct a) (exit a)]
+		[(echo-struct l) (let loop ((v l))
+					(if (null? v)
+						(display "")
+						(begin
+							(if (string? (car v))
+								(display (car v))
+								(display (or
+										(getenv (env-variable-a (car v)))
+										"")))
+							(loop (cdr v)))))]))
 
 
 
