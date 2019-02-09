@@ -44,6 +44,9 @@
 
 (define (my-read-line) (read-line))
 
+(define (emit c)
+	(void))
+
 (define (execute c)
 	(match c
 		[(exit-struct a) (exit a)]
@@ -56,7 +59,8 @@
 								(display (or
 										(getenv (env-variable-a (car v)))
 										"")))
-							(loop (cdr v)))))]))
+							(loop (cdr v)))))])
+	(emit c))
 
 
 
