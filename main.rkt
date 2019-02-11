@@ -1,6 +1,15 @@
 #lang racket
 
 
+
+#|
+As quests devem estar em um grafo anotado. Cada vertice contem o nome
+da quest, quantas são suas dependencias e o estado atual da quest(como
+uma quest é dada por um programa com seq e tals, a cada execução algo
+cai)
+
+|#
+
 (provide (all-defined-out))
 
 (require "shell.rkt")
