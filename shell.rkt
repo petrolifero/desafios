@@ -68,7 +68,7 @@ man <- 'man' _ v1:name -> (man-struct v1);
 
 l <- 'l' _ v1:name? -> (ls-struct "-l" v1);
 
-echo <- 'echo' _ v:((string / env-variable)*) -> (echo-struct v);
+echo <- 'echo' _ v:((string / env-variable)*) -> (echo-struct (if (list? v) v (list v)));
 string <- [a-zA-Z 0-9éã]+;
 env-variable <- '$' name:([a-zA-Z]+) -> (env-variable name);
 
