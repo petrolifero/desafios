@@ -46,12 +46,21 @@ cai)
 (define user (getenv "USER"))
 (define home (getenv "HOME"))
 
+(define list-of-actual-quests (list "tutorial"))
+
+;nodes are "name number-of-dependents quest-struct list-of-dependents
+(define graph-of-quests `(("tutorial" 0 ... ("ls"))
+			  ("ls" 1 ... ("cd")))
+
+
 
 (define next-string "")
 (define next-command "")
+(define my-prompt (string-append (getenv "USER") "> "))
 
-
-(define (my-read-line) (read-line))
+(define (my-read-line) 
+		(display my-prompt)
+		(read-line))
 
 (define (emit c)
 	(void))
