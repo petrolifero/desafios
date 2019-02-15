@@ -77,7 +77,8 @@ cai)
 								(display (or
 										(getenv (env-variable-a (car v)))
 										"")))
-							(loop (cdr v)))))])
+							(loop (cdr v)))))]
+		[(man-struct n) (man n)])
 	(emit c))
 
 
