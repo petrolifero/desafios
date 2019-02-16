@@ -52,11 +52,11 @@ cai)
 (define graph-of-quests `(
 				("tutorial"
 					0
-					,(shell-parse "")
+					,(shell-parser "")
 					("ls"))
 				("ls"
 					1
-					,(shell-parse "")
+					,(shell-parser "")
 					("cd"))))
 
 

@@ -20,7 +20,7 @@
 
 (struct env-variable (a) #:transparent);
 
-(define (parser str)
+(define (shell-parser str)
   (peg top-shell str));
 
 (define (red v l)
