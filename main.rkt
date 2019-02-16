@@ -92,7 +92,7 @@ cai)
 
 (define (refine-main)
 	(display next-string) ;;feito
-	(set! next-command (parser (my-read-line))) ;;TODO my-read-line
+	(set! next-command (shell-parser (my-read-line))) ;;TODO my-read-line
 	(execute next-command) ;;TODO execute
 	(refine-main)) ;;feito
 
