@@ -49,8 +49,15 @@ cai)
 (define list-of-actual-quests (list "tutorial"))
 
 ;nodes are "name number-of-dependents quest-struct list-of-dependents
-(define graph-of-quests `(("tutorial" 0 ... ("ls"))
-			  ("ls" 1 ... ("cd")))
+(define graph-of-quests `(
+				("tutorial"
+					0
+					,(shell-parse "")
+					("ls"))
+				("ls"
+					1
+					,(shell-parse "")
+					("cd"))))
 
 
 
