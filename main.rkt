@@ -13,7 +13,7 @@ cai)
 (provide (all-defined-out))
 
 (require "shell.rkt")
-
+(provide (all-from-out "shell.rkt"))
 
 (define (less str)
 	(command-message str))
@@ -45,6 +45,7 @@ cai)
 ;env variable
 (define user (getenv "USER"))
 (define home (getenv "HOME"))
+(define last-exit-code 0)
 
 (define list-of-actual-quests (list "tutorial"))
 
@@ -73,8 +74,9 @@ cai)
 	(void))
 
 (define (execute c)
+	(emit c)
 	(match c
-		[(exit-struct a) (exit a)]
+		[(exit-struct a) a]
 		[(echo-struct l) (let loop ((v l))
 					(if (null? v)
 						(display "")
@@ -84,17 +86,16 @@ cai)
 								(display (or
 										(getenv (env-variable-a (car v)))
 										"")))
-							(loop (cdr v)))))]
-		[(man-struct n) (man n)])
-	(emit c))
+							(loop (cdr v)))))
+				#f]
+		[(man-struct n) (man n) #f]))
 
 
 
 (define (refine-main)
 	(display next-string) ;;feito
-	(set! next-command (shell-parser (my-read-line))) ;;TODO my-read-line
-	(execute next-command) ;;TODO execute
-	(refine-main)) ;;feito
+	(set! next-command (shell-parser (my-read-line))) 
+	(if (execute next-command) (void) (refine-main)))
 
 
 (define (main)
@@ -210,6 +211,3 @@ cai)
   (loop (read-line))))
 
 
-
-
-(refine-main)
