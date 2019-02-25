@@ -20,7 +20,7 @@
 
 (struct env-variable (a) #:transparent);
 
-(define (shell-parser str)
+(define (parser-shell str)
   (peg top-shell str));
 
 (define (red v l)
@@ -69,7 +69,7 @@ man <- 'man' _ v1:name -> (man-struct v1);
 l <- 'l' _ v1:name? -> (ls-struct "-l" v1);
 
 echo <- 'echo' _ v:((string / env-variable)*) -> (echo-struct (if (list? v) v (list v)));
-string <- [a-zA-Z 0-9éã]+;
+string <- [a-zA-Z 0-9éãê,.]+;
 env-variable <- '$' name:([a-zA-Z]+) -> (env-variable name);
 
 exit <- 'exit' _ v:exit-code -> (exit-struct v);

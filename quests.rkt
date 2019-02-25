@@ -1,11 +1,12 @@
 #lang peg
 
 (require "shell.rkt");
+(provide (all-from-out "shell.rkt"));
+
 
 (struct idt (a) #:transparent);
 (struct seq (a b) #:transparent);
 (struct exec (a) #:transparent);
-(provide (all-from-out "shell.rkt"));
 
 //(string (listOf Idt) Command . -> . Quest)
 (struct quest (name pre c) #:transparent);
@@ -22,7 +23,7 @@ EOI < ! . ;
 top-quest <- _ v:quest _ EOI -> v;
 quest <- quest-with-prerequisites / quest-without-prerequisites ;
 quest-with-prerequisites <- _ 'quest' _ v1:identifier _ v2:preRequisites _ v3:comand _ 'tseuq' _ -> (quest v1 v2 v3);
-quest-without-prerequisites <- _ 'quest' _ v1:identifier _ v2:comand _ 'tseuq' _ -> (quest v1 (list (idt "tutorial")) v2);
+quest-without-prerequisites <- _ 'quest' _ v1:identifier _ v2:comand _ 'tseuq' _ -> (quest v1 (list ) v2);
 
 identifier <- v:[a-zA-Zé]+ -> (idt v);
 preRequisites <- '<' _ v:(identifier _ (~',' _ identifier _)*) -> v;

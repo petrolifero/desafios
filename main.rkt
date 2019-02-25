@@ -12,8 +12,10 @@ cai)
 
 (provide (all-defined-out))
 
-(require "shell.rkt")
-(provide (all-from-out "shell.rkt"))
+
+(require "quests.rkt")
+
+(provide (all-from-out "quests.rkt"))
 
 (define (less str)
 	(command-message str))
@@ -53,11 +55,16 @@ cai)
 (define graph-of-quests `(
 				("tutorial"
 					0
-					,(shell-parser "")
+					,(parser-quest "quest tutorial
+							echo você esta no tutorial, dentro do seu diretorio pessoal. Comece apertando ls com enter depois para ver o conteudo da sua pasta pessoal;
+							exec ls;
+							tseuq")
 					("ls"))
 				("ls"
 					1
-					,(shell-parser "")
+					,(parser-quest "quest ls < tutorial
+								echo ola;
+								tseuq")
 					("cd"))))
 
 
@@ -94,7 +101,7 @@ cai)
 
 (define (refine-main)
 	(display next-string) ;;feito
-	(set! next-command (shell-parser (my-read-line))) 
+	(set! next-command (parser-shell (my-read-line))) 
 	(if (execute next-command) (void) (refine-main)))
 
 
