@@ -71,7 +71,7 @@ cai)
 
 (define next-string "")
 (define next-command "")
-(define my-prompt (string-append (getenv "USER") "> "))
+(define my-prompt (string-append (getenv "USER") "@desafios:" (path->string (current-directory))))
 
 (define (my-read-line) 
 		(display my-prompt)
@@ -94,6 +94,7 @@ cai)
 										(getenv (env-variable-a (car v)))
 										"")))
 							(loop (cdr v)))))
+				(newline)
 				#f]
 		[(man-struct n) (man n) #f]))
 
