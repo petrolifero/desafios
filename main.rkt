@@ -49,7 +49,7 @@ cai)
 (define home (getenv "HOME"))
 (define last-exit-code 0)
 
-(define list-of-actual-quests (list "tutorial"))
+(define list-of-actual-quests `("tutorial"))
 
 ;nodes are "name number-of-dependents quest-struct list-of-dependents
 (define graph-of-quests `(
@@ -67,7 +67,13 @@ cai)
 								tseuq")
 					("cd"))))
 
-
+(define (find-quests name)
+	(for/first
+		([quest graph-of-quests]
+		#:when (equal? (car quest) name))
+		(caddr quest)))
+		
+	
 
 (define next-string "")
 (define next-command "")
@@ -96,11 +102,16 @@ cai)
 							(loop (cdr v)))))
 				(newline)
 				#f]
-		[(man-struct n) (man n) #f]))
+		[(man-struct n) (man n) #f]
+		[(ls-struct options directory) #f]))
 
+(define (update-actual-quests)
+	(void))
+	
 
 
 (define (refine-main)
+	(update-actual-quests)
 	(display next-string) ;;feito
 	(set! next-command (parser-shell (my-read-line))) 
 	(if (execute next-command) (void) (refine-main)))
