@@ -7,7 +7,7 @@
 (struct pipe-struct (a b) #:transparent);
 (struct out-redirect (cmd file) #:transparent);
 (struct in-redirect (cmd file) #:transparent);
-(struct dir-or-file (name) #:transparent);
+(struct shell-identifier (name) #:transparent);
 
 (struct ls-struct (options directory) #:transparent);
 (struct cd-struct (directory) #:transparent);
@@ -54,7 +54,7 @@ options-ls <- ('-l' / '-la' / '-a')?;
 
 
 cd <- 'cd' _ v:name -> (cd-struct v);
-name <- v:([a-zA-Z.]+) -> (dir-or-file v);
+name <- v:([a-zA-Z.]+) -> (shell-identifier v);
 
 mkdir <- 'mkdir' _ v:name -> (mkdir-struct v);
 
@@ -69,7 +69,7 @@ man <- 'man' _ v1:name -> (man-struct v1);
 l <- 'l' _ v1:name? -> (ls-struct "-l" v1);
 
 echo <- 'echo' _ v:((string / env-variable)*) -> (echo-struct (if (list? v) v (list v)));
-string <- [a-zA-Z 0-9éãê,.]+;
+string <- [^$;]+;
 env-variable <- '$' name:([a-zA-Z]+) -> (env-variable name);
 
 exit <- 'exit' _ v:exit-code -> (exit-struct v);

@@ -2,6 +2,8 @@
 
 (require rackunit)
 (require "../shell.rkt")
+
+;testando echo
 (check-equal?
 	(parser-shell "echo ola")
 	(echo-struct '("ola"))
@@ -22,4 +24,13 @@
 	(parser-shell "echo Seu nome é $USER Silva")
 	(echo-struct (list "Seu nome é " (env-variable "USER") " Silva"))
 	"Variavel de ambiente no meio de strings")
+
+
+;testando mkdir
+(check-equal?
+	(parser-shell "mkdir desafios")
+	(mkdir-struct (shell-identifier "desafios"))
+	"mkdir")
+
+
 

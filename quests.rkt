@@ -11,7 +11,10 @@
 //(string (listOf Idt) Command . -> . Quest)
 (struct quest (name pre c) #:transparent);
 
-
+(define (my-reduce l op)
+	(if (null? (cdr l))
+		(car l)
+		(op (car l) (my-reduce (cdr l) op))));
 
 (define (parser-quest str)
   (peg top-quest str));
@@ -27,7 +30,7 @@ quest-without-prerequisites <- _ 'quest' _ v1:identifier _ v2:comand _ 'tseuq' _
 
 identifier <- v:[a-zA-Zé]+ -> (idt v);
 preRequisites <- '<' _ v:(identifier _ (~',' _ identifier _)*) -> v;
-comand <- v:(comandUnit (_ comandUnit)*) -> (foldl (lambda (x y) (seq y x)) (car v) (cdr v)) ;
+comand <- v:(comandUnit (_ comandUnit)*) -> (my-reduce v seq) ;
 comandUnit <- v:(exec / echo-quest / file) ';' -> v;
 exec <- 'exec' sep v:shell -> (exec v);
 echo-quest <- echo ;
