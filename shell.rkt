@@ -17,6 +17,7 @@
 (struct less-struct (name) #:transparent);
 (struct more-struct (name) #:transparent);
 (struct echo-struct (a) #:transparent);
+(struct next-struct () #:transparent);
 
 (struct env-variable (a) #:transparent);
 
@@ -47,8 +48,9 @@ input-redirect <- '<' _ v:name _ -> v;
 output-redirect <- '>' _ v:name _ -> v;
 pipeline <- v1:simpleCommand _ v2:((pipe _ simpleCommand _ )*) -> (red v1 v2);
 pipe <- '|' -> pipe-struct;
-simpleCommand <- ls / cd / mkdir / cat / less / more / man / l / echo / exit;
+simpleCommand <- ls / cd / mkdir / cat / less / more / man / l / echo / exit / next;
 
+next <- 'next' -> (next-struct);
 ls <- 'ls' _ v1:options-ls _ v2:name? -> (ls-struct v1 v2);
 options-ls <- ('-l' / '-la' / '-a')?;
 
