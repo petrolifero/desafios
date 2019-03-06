@@ -80,7 +80,7 @@ cai)
 								echo ola;
 								tseuq")
 					("cd"))))
-
+;se não tiver no grafo, retorna 
 (define (find-quests name)
 	(for/first
 		([quest graph-of-quests]
@@ -106,10 +106,10 @@ cai)
 		[(exit-struct a) a]
 		[(echo-struct l) (let loop ((v l))
 					(if (null? v)
-						(display "")
+						(system-message "")
 						(begin
 							(if (string? (car v))
-								(display (car v))
+								(system-message (car v))
 								(display (or
 										(getenv (env-variable-a (car v)))
 										"")))
