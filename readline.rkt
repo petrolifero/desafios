@@ -3,11 +3,21 @@
 (require readline/pread)
 (require readline/readline)
 
-(provide my-readline)
-;limpar historico
-(for ((i (in-range 0 (history-length))))
-	(history-delete 0))
+(provide (all-defined-out))
+
+(define aux #f)
+
+(define (echo-complete str)
+	(if (string-prefix? "echo" str)
+		'("echo") '()))
+
+(define commands-complete `(,echo-complete))
+
+(define (complete partial-command)
+	(flatten (map (lambda (x) (x partial-command)) commands-complete)))
+
 
 (define (my-readline prompt)
+	(set-completion-function! complete)
 	(readline prompt))
 
