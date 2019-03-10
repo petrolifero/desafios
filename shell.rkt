@@ -9,6 +9,8 @@
 (struct in-redirect (cmd file) #:transparent);
 (struct shell-identifier (name) #:transparent);
 
+(struct command-not-exist (command) #:transparent);
+
 (struct ls-struct (options directory) #:transparent);
 (struct cd-struct (directory) #:transparent);
 (struct mkdir-struct (directory) #:transparent);
@@ -36,7 +38,9 @@
 
 EOI < ! . ;
 _ < [ \t]* ;
-top-shell <- _ v:shell _ EOI -> v;
+top-shell <- shell-exist / shell-inexist  ;
+shell-inexist <- v:(.*) -> (command-not-exist v);
+shell-exist <- _ v:shell _ EOI -> v;
 shell <- _ v:logic _ -> v;
 logic <- v1:redirect _ v2:((logicOperator _ redirect _)*) -> (red v1 v2);
 logicOperator <- v:('&&' / '||' ) -> (if (equal? v "&&") and-struct or-struct);

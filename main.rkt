@@ -113,10 +113,10 @@ cai)
 										(getenv (env-variable-a (car v)))
 										"")))
 							(loop (cdr v)))))
-				(newline)
 				#f]
 		[(man-struct n) (man n) #f]
-		[(ls-struct options directory) #f]))
+		[(ls-struct options directory) #f]
+		[(command-not-exist v) (command-message (format "comando ~a inexiste" v)) #f]))
 
 (define (update-actual-quests)
 	(void))

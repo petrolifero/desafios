@@ -5,7 +5,7 @@
 
 (provide my-readline)
 ;limpar historico
-(for ((i (in-range 1 (history-length))))
+(for ((i (in-range 0 (history-length))))
 	(history-delete 0))
 
 (define (my-readline prompt)
