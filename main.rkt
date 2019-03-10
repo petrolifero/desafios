@@ -52,26 +52,6 @@ cai)
 
 ;list of lists
 ; ( (name-of-quest rest-of-quest))
-(define list-of-actual-quests (list
-					(list "tutorial" (parser-quest "quest tutorial
-							echo você esta no tutorial, dentro do seu diretorio pessoal. Comece apertando ls com enter depois para ver o conteudo da sua pasta pessoal;
-							exec ls;
-							echo Olha só o conteudo do seu diretorio. Reparou no textinho antes de você digitar ls? Ele mostra que você se chama $USER e esta atualmente dentro do diretorio(um nome pomposo para pasta) $PWD;
-							echo Agora vamos criar um diretorio para você. Ele se chamará desafios. Digite \"mkdir desafios\";
-							exec mkdir desafios;
-							echo Olha só, seu diretorio foi criado;
-							echo Você criou o diretorio que especificou... Será mesmo??;
-							echo Não confie em mim. Dê um \"ls desafios\" para verificar;
-							exec ls desafios;
-							echo Olha só o conteudo do seu diretorio novo... Ué, sem nada? Relaxa, ela só esta vazia. Agora tem sua nova pasta.;
-							echo Se ela não existisse, ia aparecer uma mensagem de erro.;
-							echo Agora vamos entrar nesse diretorio e fazer as quests ali. Para viajar pelos diretorios usamos o comando cd. digite \"cd desafios\" para entrar nessa pasta.;
-							exec cd desafios;
-							echo Olhe só o que você fez : Note a mudança;
-							echo quando notar, digite next e você oficialmente saiu do tutorial.A partir de agora, não terão mais tantas mensagens do sistema, vermelhas assim para te guiar, você estará mais livre. Não se amedronte, a primeira quest da nova vida será sobre o manual para pedir ajuda :);
-							exec next;
-							tseuq") )))
-
 ;nodes are "name number-of-dependents quest-struct list-of-dependents
 (define graph-of-quests `(
 				("tutorial"
@@ -109,7 +89,9 @@ cai)
 		(caddr quest)))
 		
 	
-
+(define list-of-actual-quests (list
+					(list "tutorial" (find-quests "tutorial"))))
+;
 (define next-string "")
 (define next-command "")
 (define my-prompt (string-append (getenv "USER") "@desafios:" (path->string (current-directory))))
