@@ -1,6 +1,13 @@
 #lang racket
 
-(require charterm)
+(require readline/pread)
+(require readline/readline)
 
-(with-charterm
-	(charterm-screen-size #:charterm (current-charterm)))
+(provide my-readline)
+;limpar historico
+(for ((i (in-range 1 (history-length))))
+	(history-delete 0))
+
+(define (my-readline prompt)
+	(readline prompt))
+

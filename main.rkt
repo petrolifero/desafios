@@ -13,6 +13,7 @@ cai)
 (provide (all-defined-out))
 
 
+(require "readline.rkt")
 (require "quests.rkt")
 
 (provide (all-from-out "quests.rkt"))
@@ -113,10 +114,6 @@ cai)
 (define next-command "")
 (define my-prompt (string-append (getenv "USER") "@desafios:" (path->string (current-directory))))
 
-(define (my-read-line) 
-		(display my-prompt)
-		(read-line))
-
 (define (emit c)
 	(void))
 
@@ -147,7 +144,7 @@ cai)
 (define (refine-main)
 	(update-actual-quests)
 	(display next-string) ;;feito
-	(set! next-command (parser-shell (my-read-line))) 
+	(set! next-command (parser-shell (my-readline my-prompt))) 
 	(if (execute next-command) (void) (refine-main)))
 
 
