@@ -119,7 +119,18 @@ cai)
 		[(command-not-exist v) (command-message (format "comando ~a inexiste" v)) #f]))
 
 (define (update-actual-quests)
-	(void))
+
+	;quest -> (quest)
+	;return () if the last comand was echo
+	;return (q) if the quest was partly consumed by echos
+	;return l if the quest was total consumed but exist (length l) dependencies
+
+	(define (advance-quest q)
+		(list q))
+	(define (advance-quests q)
+		(flatten (map advance-quest q)))
+			
+	(set! list-of-actual-quests (advance-quests list-of-actual-quests)))
 	
 
 
