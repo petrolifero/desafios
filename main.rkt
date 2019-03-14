@@ -90,7 +90,7 @@ cai)
 		
 	
 (define list-of-actual-quests (list
-					(list "tutorial" (find-quests "tutorial"))))
+					(find-quests "tutorial")))
 ;
 (define next-string "")
 (define next-command "")
@@ -99,16 +99,16 @@ cai)
 (define (emit c)
 	(void))
 
-(define (execute c)
-	(emit c)
+(define (execute c [emit? #t] [show command-message])
+	(when emit? (emit c))
 	(match c
 		[(exit-struct a) a]
 		[(echo-struct l) (let loop ((v l))
 					(if (null? v)
-						(command-message "")
+						(show "")
 						(begin
 							(if (string? (car v))
-								(command-message (car v))
+								(show (car v))
 								(display (or
 										(getenv (env-variable-a (car v)))
 										"")))
@@ -117,6 +117,11 @@ cai)
 		[(man-struct n) (man n) #f]
 		[(ls-struct options directory) #f]
 		[(command-not-exist v) (command-message (format "comando ~a inexiste" v)) #f]))
+(define (graph-next-quests name)
+	(for/list ([quest graph-of-quests]
+			#:when (member name (quest-pre (caddr quest))))
+			(caddr quest)))
+		
 
 (define (update-actual-quests)
 
@@ -126,7 +131,16 @@ cai)
 	;return l if the quest was total consumed but exist (length l) dependencies
 
 	(define (advance-quest q)
-		(list q))
+		(match q
+			[(quest name pre (seq (echo-struct l) r))
+			(begin
+				(execute (echo-struct l) #f system-message)
+				(advance-quest (quest name pre r)))]
+			[(quest name pre (seq a b)) (list q) ]
+			[(quest name pre (echo-struct l))
+			(begin
+				(execute (echo-struct l) #f system-message)
+				(graph-next-quests name))]))
 	(define (advance-quests q)
 		(flatten (map advance-quest q)))
 			

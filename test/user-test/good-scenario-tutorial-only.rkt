@@ -14,3 +14,7 @@
 		(execute (echo-struct (list "ola")))
 		#f)
 
+(check-equal?
+		(execute (exit-struct 23))
+		23)
+

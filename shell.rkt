@@ -78,7 +78,7 @@ echo <- 'echo' _ v:((string / env-variable)*) -> (echo-struct (if (list? v) v (l
 string <- [^$;]+;
 env-variable <- '$' name:([a-zA-Z]+) -> (env-variable name);
 
-exit <- 'exit' _ v:exit-code -> (exit-struct v);
-exit-code <- number;
+exit <- 'exit' _ v:exit-code -> (exit-struct (if (null? v) 0 v));
+exit-code <- number?;
 number <- v:([0-9]+) -> (string->number v);
 
