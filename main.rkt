@@ -97,7 +97,13 @@ cai)
 (define my-prompt (string-append (getenv "USER") "@desafios:" (path->string (current-directory))))
 
 (define (emit c)
-	(void))
+	(define (advance-quest q)
+		(match q
+			[(quest name pre (seq (exec (? (lambda (x) (equal? x c)) a)) b)) (list (quest name pre b))]
+			[a (list a)]))
+	(define (advance-quests q)
+		(flatten (map advance-quest q)))
+	(set! list-of-actual-quests (advance-quests list-of-actual-quests)))
 
 (define (execute c [emit? #t] [show command-message])
 	(when emit? (emit c))
