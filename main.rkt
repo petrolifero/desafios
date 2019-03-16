@@ -30,13 +30,11 @@ cai)
 
 (define (system-message str)
   (let ([s (string-append "\x1B[31m" str "\x1B[0m")])
-    (display s)
-    (newline)))
+    (display s)))
 
 (define (command-message str)
   (let ([s (string-append "\x1B[35m" str "\x1B[0m")])
-    (display s)
-    (newline)))
+    (display s)))
 
 (define (red l)
   (if (null? l)
@@ -57,21 +55,21 @@ cai)
 				("tutorial"
 					0
 					,(parser-quest "quest tutorial
-							echo você esta no tutorial, dentro do seu diretorio pessoal. Comece apertando ls com enter depois para ver o conteudo da sua pasta pessoal;
+							echo você esta no tutorial, dentro do seu diretorio pessoal. Comece apertando ls com enter depois para ver o conteudo da sua pasta pessoal\n;
 							exec ls;
-							echo Olha só o conteudo do seu diretorio. Reparou no textinho antes de você digitar ls? Ele mostra que você se chama $USER e esta atualmente dentro do diretorio(um nome pomposo para pasta) $PWD;
-							echo Agora vamos criar um diretorio para você. Ele se chamará desafios. Digite \"mkdir desafios\";
+							echo Olha só o conteudo do seu diretorio. Reparou no textinho antes de você digitar ls? Ele mostra que você se chama $USER e esta atualmente dentro do diretorio(um nome pomposo para pasta) $PWD\n;
+							echo Agora vamos criar um diretorio para você. Ele se chamará desafios. Digite \"mkdir desafios\"\n;
 							exec mkdir desafios;
-							echo Olha só, seu diretorio foi criado;
-							echo Você criou o diretorio que especificou... Será mesmo??;
-							echo Não confie em mim. Dê um \"ls desafios\" para verificar;
+							echo Olha só, seu diretorio foi criado\n;
+							echo Você criou o diretorio que especificou... Será mesmo??\n;
+							echo Não confie em mim. Dê um \"ls desafios\" para verificar\n;
 							exec ls desafios;
-							echo Olha só o conteudo do seu diretorio novo... Ué, sem nada? Relaxa, ela só esta vazia. Agora tem sua nova pasta.;
-							echo Se ela não existisse, ia aparecer uma mensagem de erro.;
-							echo Agora vamos entrar nesse diretorio e fazer as quests ali. Para viajar pelos diretorios usamos o comando cd. digite \"cd desafios\" para entrar nessa pasta.;
+							echo Olha só o conteudo do seu diretorio novo... Ué, sem nada? Relaxa, ela só esta vazia. Agora tem sua nova pasta.\n;
+							echo Se ela não existisse, ia aparecer uma mensagem de erro.\n;
+							echo Agora vamos entrar nesse diretorio e fazer as quests ali. Para viajar pelos diretorios usamos o comando cd. digite \"cd desafios\" para entrar nessa pasta.\n;
 							exec cd desafios;
-							echo Olhe só o que você fez : Note a mudança;
-							echo quando notar, digite next e você oficialmente saiu do tutorial.A partir de agora, não terão mais tantas mensagens do sistema, vermelhas assim para te guiar, você estará mais livre. Não se amedronte, a primeira quest da nova vida será sobre o manual para pedir ajuda :);
+							echo Olhe só o que você fez : Note a mudança\n;
+							echo quando notar, digite next e você oficialmente saiu do tutorial.A partir de agora, não terão mais tantas mensagens do sistema, vermelhas assim para te guiar, você estará mais livre. Não se amedronte, a primeira quest da nova vida será sobre o manual para pedir ajuda :)\n;
 							exec next;
 							tseuq")
 					("ls"))
@@ -115,13 +113,13 @@ cai)
 						(begin
 							(if (string? (car v))
 								(show (car v))
-								(display (or
+								(show (or
 										(getenv (env-variable-a (car v)))
 										"")))
 							(loop (cdr v)))))
 				#f]
 		[(man-struct n) (man n) #f]
-		[(ls-struct options directory) #f]
+		[(ls-struct '() directory) (command-message (red (map path->string (directory-list (current-directory))))) #f]
 		[(command-not-exist v) (command-message (format "comando ~a inexiste" v)) #f]))
 (define (graph-next-quests name)
 	(for/list ([quest graph-of-quests]
