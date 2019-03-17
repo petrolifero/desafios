@@ -117,9 +117,14 @@ cai)
 										(getenv (env-variable-a (car v)))
 										"")))
 							(loop (cdr v)))))
+				(newline)
 				#f]
 		[(man-struct n) (man n) #f]
-		[(ls-struct '() directory) (command-message (red (map path->string (directory-list (current-directory))))) #f]
+		[(ls-struct '() (shell-identifier directory)) 
+			(if (absolute-path? directory)
+				(command-message (red (map path->string (directory-list (string->path directory)))))
+				(command-message (red (map path->string (directory-list (build-path (current-directory) directory))))))
+			#f]
 		[(command-not-exist v) (command-message (format "comando ~a inexiste" v)) #f]))
 (define (graph-next-quests name)
 	(for/list ([quest graph-of-quests]

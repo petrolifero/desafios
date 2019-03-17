@@ -55,12 +55,12 @@ pipe <- '|' -> pipe-struct;
 simpleCommand <- ls / cd / mkdir / cat / less / more / man / l / echo / exit / next;
 
 next <- 'next' -> (next-struct);
-ls <- 'ls' _ v1:options-ls _ v2:name? -> (ls-struct v1 v2);
+ls <- 'ls' _ v1:options-ls _ v2:name? -> (ls-struct v1 (if (null? v2) (shell-identifier ".") v2));
 options-ls <- ('-l' / '-la' / '-a')?;
 
 
 cd <- 'cd' _ v:name -> (cd-struct v);
-name <- v:([a-zA-Z.]+) -> (shell-identifier v);
+name <- v:([a-zA-Z./]+) -> (shell-identifier v);
 
 mkdir <- 'mkdir' _ v:name -> (mkdir-struct v);
 
